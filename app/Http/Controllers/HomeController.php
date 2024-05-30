@@ -10,13 +10,14 @@ use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
-      public function index() {
-    $stores = Stores::latest()->paginate(15);
-   $categories = Categories::latest()->paginate(25);
-    $blogs = Blog::latest()->paginate(15);
-      $Coupons = Coupons::latest()->paginate(15);
-    return view('home', compact('stores', 'categories', 'blogs','Coupons'));
-}
+    public function index() {
+        $stores = Stores::latest()->paginate(15);
+       $categories = Categories::latest()->paginate(5);
+        $blogs = Blog::latest()->paginate(10);
+        $home = Blog::paginate(10);
+          $Coupons = Coupons::latest()->paginate(15);
+        return view('home', compact('stores', 'categories', 'blogs','Coupons','home'));
+    }
 public function topStores(Request $request)
 {
     $topstores = Stores::latest()->paginate(30); // Assuming your store model is named Store
