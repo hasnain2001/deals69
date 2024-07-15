@@ -35,7 +35,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // Route for search
-Route::get('/search', [SearchController::class, 'searchResults'])->name('searchResults');
+Route::get('/search', [SearchController::class, 'searchResults'])->name('search');
 
 
 
@@ -51,8 +51,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/related_categories/{title}', 'RelatedCategoryStores')->name('related_category');
 
 
-    
-  
+
+
 });
 
 
@@ -108,6 +108,9 @@ Route::controller(NetworksController::class)->prefix('admin')->group(function ()
 
 // Coupons Routes Begin
 Route::get('coupons', [CouponsController::class, 'index'])->name('coupons.index');
+Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
+Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
+
 
 Route::controller(CouponsController::class)->prefix('admin')->group(function () {
     Route::get('/coupon', 'coupon')->name('admin.coupon');

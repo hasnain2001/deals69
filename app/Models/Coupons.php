@@ -16,6 +16,7 @@ class Coupons extends Model
         'destination_url',
         'ending_date',
         'status',
+        'clicks',
         'authentication',
         'store',
         'order',
