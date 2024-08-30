@@ -12,11 +12,16 @@ class HomeController extends Controller
 {
     public function index() {
         $stores = Stores::latest()->paginate(15);
-       $categories = Categories::latest()->paginate(5);
+
         $blogs = Blog::latest()->paginate(10);
         $home = Blog::paginate(10);
           $Coupons = Coupons::latest()->paginate(15);
-        return view('home', compact('stores', 'categories', 'blogs','Coupons','home'));
+        return view('home', compact('stores',  'blogs','Coupons','home'));
+    }
+
+    public function coupons(){
+        $coupons = Coupons::all();
+        return view('coupons',compact('coupons'));
     }
 public function topStores(Request $request)
 {

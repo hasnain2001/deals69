@@ -35,7 +35,8 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // Route for search
-Route::get('/search', [SearchController::class, 'searchResults'])->name('search');
+Route::get('/search', [SearchController::class, 'searchResults'])->name('searchResults');
+
 
 
 
@@ -46,7 +47,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/stores', 'stores')->name('stores');
     Route::get('/store/{name}', 'StoreDetails')->name('store_details');
-    Route::get('/coupons', 'index')->name('coupons');
+    Route::get('/coupons', 'coupons')->name('coupons-store');
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/related_categories/{title}', 'RelatedCategoryStores')->name('related_category');
 

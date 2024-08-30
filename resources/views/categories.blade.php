@@ -7,7 +7,7 @@ header("X-Robots-Tag:index, follow");
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
           <title>Deals69 - Best Deals and Discounts |Categories</title>
     <!-- Your custom meta tags go here -->
@@ -41,7 +41,7 @@ header("X-Robots-Tag:index, follow");
     margin-top: 10px;
 }
 
-</style> 
+</style>
 </head>
        <body>
            <x-component-name/>
@@ -52,10 +52,10 @@ header("X-Robots-Tag:index, follow");
                 <h1>Categories</h1>
                 @foreach ($categories as $category)
                 <div class="col-12 col-lg-3 mb-3">
-            
+
     <div class="card shadow p-3">
                             <div class="card-body">
-                               <a href="{{ url('related_categories/'. Str::slug($category->title)) }}" class="text-decoration-none">
+                               <a href="{{ route('related_category'. Str::slug($category->title)) }}" class="text-decoration-none">
 
                                 @if ($category->category_image)
                                 <img class=" rounded-circle"

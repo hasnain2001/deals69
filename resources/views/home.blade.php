@@ -53,7 +53,7 @@
         <div class="col-md-4 shadow">
             <div class="container bg-info rounded text-white">
             <h4><em>Shopping Hacks & Savings Tips & Tricks</em></h4></div>
-            
+
             <div class="row">
                 @foreach ($blogs as $blog)
                 <div class="col-md-12 mb-4">
@@ -76,7 +76,7 @@
         <div class="col-md-8">
             <div class="container">
             <h3>Top Coupons</h3></div>
- 
+
 
 <div class="row">
     @foreach ($Coupons as $coupon)
@@ -122,27 +122,6 @@
 
 
 
-    <!-- <div class="row mt-5">-->
-    <!--    <h2 class="fw-bold home_ts_h2">Top Categories</h2>-->
-    <!--    @foreach ($categories as $category)-->
-    <!--        <div class="col-12 col-lg-2 col-md-4 col-sm-12 ">-->
-    <!--       <a href="{{ url('related_category/'. Str::slug($category->meta_tag)) }}" class="text-decoration-none">-->
-
-
-    <!--              <div class="stores home_top_stores shadow p-3">-->
-    <!--                 @if ($category->category_image)-->
-    <!--                    <img  src="{{ asset('uploads/categories/' . $category->category_image) }}" alt="{{ $category->title }} Image"  width="100%" height="150">-->
-    <!--                @else-->
-    <!--                    <p>No image available</p>-->
-    <!--                @endif-->
-    <!--                  <span class="fw-bold">{{ $category->title }}</span>-->
-    <!--              </div>-->
-    <!--            </a>-->
-    <!--        </div>-->
-    <!--    @endforeach-->
-    <!--</div>-->
-
-
 <br><br><br>
 
 
@@ -171,12 +150,12 @@
                 console.error("Failed to copy: ", error);
             });
     }
-    
+
     function openCouponInNewTab(url, couponId) {
         window.open(url, '_blank');
         var modal = new bootstrap.Modal(document.getElementById('codeModal' + couponId));
         modal.show();
-        
+
         // Automatically close the modal after 5 seconds when hovered over
         setTimeout(function() {
             modal.hide();
@@ -200,13 +179,13 @@
     const sliderScrollbar = document.querySelector(".container .slider-scrollbar");
     const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
     const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
-    
+
     // Handle scrollbar thumb drag
     scrollbarThumb.addEventListener("mousedown", (e) => {
         const startX = e.clientX;
         const thumbPosition = scrollbarThumb.offsetLeft;
         const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
-        
+
         // Update thumb position on mouse move
         const handleMouseMove = (e) => {
             const deltaX = e.clientX - startX;
@@ -215,7 +194,7 @@
             // Ensure the scrollbar thumb stays within bounds
             const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
             const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
-            
+
             scrollbarThumb.style.left = `${boundedPosition}px`;
             imageList.scrollLeft = scrollPosition;
         }

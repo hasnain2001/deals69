@@ -14,15 +14,14 @@ header("X-Robots-Tag:index, follow");
  <meta name="robots" content="index, follow">
 
 <link rel="canonical" href="https://deals69.com/stores">
-     <link rel="icon" href="{{ asset('images/.png') }}" type="image/x-icon">
+<link rel="icon" href="{{ asset('images/dlogo-removebg-preview.png') }}" type="image/x-icon">
     <!-- Styles -->
 
-        
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
            <style>
-            .body{
-    background-color:#fff;
-}
+
     .container {
         max-width: 1200px;
         margin: auto;
@@ -48,7 +47,7 @@ header("X-Robots-Tag:index, follow");
         margin-bottom: 20px;
         padding: 10px;
         border-radius: 5px;
-       
+
         transition: all 0.3s ease;
     }
 
@@ -87,14 +86,28 @@ header("X-Robots-Tag:index, follow");
         .card-list a:nth-child(4n) {
             margin-right: 0;
         }
-    }</style>
+    }
+
+    .pagination-responsive {
+    flex-wrap: wrap; 
+}
+
+.pagination-responsive .page-item {
+    margin: 2px; /* Add margin for better spacing */
+}
+
+.pagination-responsive .page-link {
+    padding: 8px 12px; /* Adjust padding for better touch target size */
+}
+
+    </style>
 </head>
 <body class="">
 <x-component-name/>
 <div class="container bg-light">
-    <div class="row mt-3 justify-content-end">
+    <div class="row mt-3 justify-content-center">
         <div class="col-12">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination pagination-responsive justify-content-center">
                 @foreach(range('A', 'Z') as $letter)
                     <li class="page-item"><a class="page-link" href="{{ route('stores', ['letter' => $letter]) }}">{{ $letter }}</a></li>
                 @endforeach
@@ -102,21 +115,31 @@ header("X-Robots-Tag:index, follow");
         </div>
     </div>
 </div>
+
 <div class="container">
-    <div class="card-list ">
-        @foreach ($stores as $store)
-        <a href="{{ route('store_details', ['name' => Str::slug($store->name)]) }}" class="text-decoration-none">
-            <img class="stores shadow" src="{{ $store->store_image ? asset('uploads/store/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" alt="Card Image">
-          
-                <h5 class="card-title mt-3 mx-2">{{ $store->name ?: "Title not found" }}</h5>
-         
-        </a>
-        @endforeach
-    </div>
+    <p class="h5 m-0">Total stores: <span class="fw-bold">{{ $stores->total() }}</span></p>
+</div>
+<div class="container">
+    @if ($stores->isEmpty())
+        <div class="alert alert-info text-dark" role="alert">
+            No stores found.
+        </div>
+    @else
+        <div class="card-list">
+            @foreach ($stores as $store)
+                <a href="{{ route('store_details', ['name' => Str::slug($store->name)]) }}" class="text-decoration-none">
+                    <img class="stores shadow" src="{{ $store->store_image ? asset('uploads/store/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" alt="Card Image">
+                    <h5 class="card-title mt-3 mx-2">{{ $store->name ?: "Title not found" }}</h5>
+                </a>
+            @endforeach
+        </div>
+    @endif
 </div>
 
 
 
 <x-footer/>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 </html>
