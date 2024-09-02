@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Http\Request;
 use App\Models\Categories;
-use App\Models\Stores;
+
 
 class CategoriesController extends Controller
 {
@@ -13,49 +15,109 @@ class CategoriesController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
-      public function categories() {
-        $category = Categories::all();
-        return view('categories', compact('category'));
-    }
     public function create_category() {
         return view('admin.categories.create');
     }
 
     public function store_category(Request $request) {
-        if (request()->File('category_image'))
-        {
-            $file = request()->File('category_image');
+        // Validate the request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'meta_tag' => 'nullable|string|max:255',
+            'meta_keyword' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'status' => 'required',
+            'authentication' => 'nullable|string',
+            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        // Initialize $CategoryImage to a default value
+        $CategoryImage = 'No Category Image';
+
+        if ($request->hasFile('category_image')) {
+            $file = $request->file('category_image');
             $CategoryImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $file->move('./uploads/', $CategoryImage);
+            $filePath = public_path('uploads/categories/' . $CategoryImage);
+
+            // Move the file to the destination folder
+            $file->move(public_path('uploads/categories/'), $CategoryImage);
+
+            // Use Imagick to create a new image instance
+            $imageInstance = ImageManager::imagick()->read($filePath);
+
+            // Resize the image to fit within 400x300 pixels while preserving aspect ratio
+            $imageInstance->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize(); // Prevent upsizing
+            });
+
+            // Save the resized image
+            $imageInstance->save($filePath);
+
+            // Optimize the image using the optimizer chain
+            $optimizer = OptimizerChainFactory::create();
+            $optimizer->optimize($filePath);
         }
 
+        // Create the category
         Categories::create([
-            'title' => $request->title,
-            'meta_tag' => $request->meta_tag,
-            'meta_keyword' => $request->meta_keyword,
-            'meta_description' => $request->meta_description,
-            'status' => $request->status,
-            'authentication' => isset($request->authentication) ? $request->authentication : "No Auth",
-            'category_image' => isset($CategoryImage) ? $CategoryImage : "No Category Image",
+            'title' => $validatedData['title'],
+            'meta_tag' => $validatedData['meta_tag'],
+            'meta_keyword' => $validatedData['meta_keyword'],
+            'meta_description' => $validatedData['meta_description'],
+            'status' => $validatedData['status'],
+            'authentication' => $validatedData['authentication'] ?? 'No Auth',
+            'category_image' => $CategoryImage,
         ]);
 
         return redirect()->back()->with('success', 'Category Created Successfully');
     }
-    
+
     public function edit_category($id) {
         $categories = Categories::find($id);
         return view('admin.categories.edit', compact('categories'));
     }
 
     public function update_category(Request $request, $id) {
+
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'meta_tag' => 'nullable|string|max:255',
+            'meta_keyword' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'status' => 'required',
+            'authentication' => 'nullable|string',
+            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
         $categories = Categories::find($id);
 
-        if (request()->File('category_image'))
-        {
-            $file = request()->File('category_image');
+        $CategoryImage = $categories->category_image;
+
+        if ($request->hasFile('category_image')) {
+            $file = $request->file('category_image');
             $CategoryImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $file->move('./uploads/', $CategoryImage);
+            $filePath = public_path('uploads/categories/' . $CategoryImage);
+
+            // Move the file to the destination folder
+            $file->move(public_path('uploads/categories/'), $CategoryImage);
+
+            // Use Imagick to create a new image instance
+            $imageInstance = ImageManager::imagick()->read($filePath);
+
+            // Resize the image to fit within 400x300 pixels while preserving aspect ratio
+            $imageInstance->resize(300, 200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize(); // Prevent upsizing
+            });
+
+            // Save the resized image
+            $imageInstance->save($filePath);
+
+            // Optimize the image using the optimizer chain
+            $optimizer = OptimizerChainFactory::create();
+            $optimizer->optimize($filePath);
         }
+
 
         $categories->update([
             'title' => $request->title,
@@ -74,27 +136,20 @@ class CategoriesController extends Controller
         Categories::find($id)->delete();
         return redirect()->back()->with('success', 'Category Deleted Successfully');
     }
-public function viewcategory($meta_tag)
+
+
+public function deleteSelected(Request $request)
 {
-    // Convert the meta tag to a slug
-    $slug = Str::slug($meta_tag);
-    
-    // Convert the slug back to title case
-    $name = ucwords(str_replace('-', ' ', $slug));
-    
-    // Retrieve stores related to the category
-    $stores = Stores::where('category', $name)->get();
-    
-    if ($stores->isEmpty()) {
-        // Handle case where no stores are found for the category
-        abort(404);
+    $categoryIds = $request->input('selected_categories');
+
+    if ($categoryIds) {
+        Categories::whereIn('id', $categoryIds)->delete();
+        return redirect()->back()->with('success', 'Selected categories deleted successfully');
+    } else {
+        return redirect()->back()->with('error', 'No categories selected for deletion');
     }
-    
-    // Generate the URL string for the related category
-    $url = route('related_category', ['meta_tag' => $meta_tag]);
-    
-    // Pass the stores, category name, and URL to the view
-    return view('related_category', compact('stores', 'name', 'url'));
 }
+
+
 
 }

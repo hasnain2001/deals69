@@ -64,7 +64,7 @@
                 </ul>
                 <form action="{{ route('searchResults') }}" method="GET" class="d-flex ms-auto" role="search" style="height:40px">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="query" style="max-width: 250px;">
-                    <button class="btn btn-outline-success text-dark" type="submit"><i class="fas fa-search me-1"></i></button>
+                    <button class="btn btn-primary text-dark" type="submit"><i class="fas fa-search me-1"></i></button>
                 </form>
             </div>
         </div>

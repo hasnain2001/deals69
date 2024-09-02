@@ -14,36 +14,12 @@ class DemoController extends Controller
 
 
 
-  
-       public function blog_home()
-    {
-        $blogs = Blog::all(); // Fetch blog data
-     $chunks = Stores::inRandomOrder()->limit(25)->get();
-        return view('blog', compact('blogs', 'chunks')); // Pass both data to the view
-    }
+
 
     public function blog() {
-        $blogs = Blog::all(); 
+        $blogs = Blog::all();
         return view('admin.Blog.index', compact('blogs'));
     }
-    
-    
-public function blog_show($title) {
-    // Decode the URL-encoded title
-    $decodedTitle = str_replace('-', ' ', $title);
-
-    // Retrieve the blog post from the database based on the decoded title
-    $blog = Blog::where('title', $decodedTitle)->firstOrFail();
-    
-    return view('blog-details', compact('blog'));
-}
-
-
-
-
-
-
-
 
 
     public function create() {
@@ -61,7 +37,7 @@ public function blog_show($title) {
         'meta_description' => 'nullable|string|max:155', // Meta description validation
         'meta_keyword' => 'nullable|string|max:255', // Meta keyword validation
         ]);
-    
+
         // Handle file upload
         if ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
@@ -71,17 +47,17 @@ public function blog_show($title) {
         } else {
             $imagePath = null;
         }
-    
+
         // Create a new instance of the Blog model and assign values from the request
         $blog = new Blog();
         $blog->title = $request->input('title');
-       
+
         $blog->category_image = $imagePath;
            $blog->meta_title = $request->input('meta_title');
     $blog->meta_description = $request->input('meta_description');
     $blog->meta_keyword = $request->input('meta_keyword');
         // Assign file path to category_image
-    
+
       // Process and manipulate HTML content
 // Process and manipulate HTML content
 $content = $request->input('content');
@@ -132,7 +108,7 @@ $blog->save();
         session()->flash('<div class="alert alert-info" role="alert">
         blog created succesfully
         </div>');
-    
+
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Blog created successfully.');
     }

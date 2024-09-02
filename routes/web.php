@@ -31,9 +31,7 @@ Route::get('/term-and-condition', function () {
 
 // Route for the contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
-
 // Route for search
 Route::get('/search', [SearchController::class, 'searchResults'])->name('searchResults');
 
@@ -50,9 +48,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/coupons', 'coupons')->name('coupons-store');
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/category/{title}', 'RelatedCategoryStores')->name('related_category');
-
-
-
+    Route::get('/blog', 'blog')->name('blog');
+    Route::get('/blog-details/{title}',  'blog_deatil')->name('blog-details');
 
 });
 
@@ -65,7 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
 Route::prefix('admin')->group(function () {
     Route::get('/Blog', [DemoController::class, 'blog'])->name('admin.blog');
     Route::get('/Blog/create', [DemoController::class, 'create'])->name('admin.blog.create');
@@ -74,8 +71,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/admin/Blog/update/{id}', [DemoController::class, 'update'])->name('admin.Blog.update');
     Route::delete('/admin/Blog/{id}', [DemoController::class, 'destroy'])->name('admin.blog.delete');
 });
-Route::get('/blog', [DemoController::class, 'blog_home'])->name('blog');
-Route::get('/blog-details/{title}', [DemoController::class, 'blog_show'])->name('blog-details');
+
 
 // Stores Routes Begin
 Route::controller(StoresController::class)->prefix('admin')->group(function () {
@@ -122,5 +118,6 @@ Route::controller(CouponsController::class)->prefix('admin')->group(function () 
     Route::get('/coupon/delete/{id}', 'delete_coupon')->name('admin.coupon.delete');
     Route::post('/custom-sortable', 'update')->name('custom-sortable');
 
+});
 });
 require __DIR__.'/auth.php';

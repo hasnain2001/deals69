@@ -11,6 +11,24 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+
+    public function blog()
+    {
+        $blogs = Blog::all(); // Fetch blog data
+     $chunks = Stores::inRandomOrder()->limit(25)->get();
+        return view('blog', compact('blogs', 'chunks')); // Pass both data to the view
+    }
+
+public function blog_deatil($title) {
+    // Decode the URL-encoded title
+    $decodedTitle = str_replace('-', ' ', $title);
+
+    // Retrieve the blog post from the database based on the decoded title
+    $blog = Blog::where('title', $decodedTitle)->firstOrFail();
+
+    return view('blog-details', compact('blog'));
+}
+
     public function index() {
         $stores = Stores::latest()->paginate(15);
 
@@ -70,10 +88,6 @@ public function topStores(Request $request)
 
     return view('stores', compact('stores'));
 }
-    public function blog() {
-        $store = Blog::all();
-        return view('Blog', compact('blog'));
-    }
 
     public function StoreDetails($name, Request $request) {
         $slug = Str::slug($name);
