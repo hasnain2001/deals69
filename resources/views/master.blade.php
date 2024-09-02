@@ -16,14 +16,14 @@ header("X-Robots-Tag:index, follow");
      <meta name="description" content="Find the best deals, discounts, and coupons on  Deals69. Save money on your favorite products from top brands.">
 
  <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
-<link rel="icon" href="{{ asset('images/dlogo-removebg-preview.png') }}" type="image/x-icon">
+ <link rel="shortcut icon" href="{{asset('images/icon.png')}}" type="image/x-icon">
   <meta name="author" content="John Doe">
  <meta name="robots" content="index, follow">
 
 <link rel="canonical" href="https://deals69.com">
 
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <link rel="stylesheet" href="{{asset('font/css/home.css')}}">
          <style>
      body{
@@ -72,9 +72,7 @@ header("X-Robots-Tag:index, follow");
     <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
     <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
     <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
-    <li data-bs-target="#carouselExample" data-bs-slide-to="3"></li>
-    <li data-bs-target="#carouselExample" data-bs-slide-to="4"></li>
-    <li data-bs-target="#carouselExample" data-bs-slide-to="5"></li>
+
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -86,15 +84,7 @@ header("X-Robots-Tag:index, follow");
     <div class="carousel-item">
       <img class="d-block w-100 rounded" src="images/caraosel-2.png" alt="Third slide"  loading="lazy">
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100 rounded" src="images/caraosel-1.png" alt="Fourth slide"  loading="lazy">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100 rounded" src="images/caraosel.png" alt="Fifth slide"  loading="lazy">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100 rounded" src="images/caraosel-2.png" alt="Sixth slide"  loading="lazy">
-    </div>
+
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -89,7 +89,7 @@ header("X-Robots-Tag:index, follow");
     }
 
     .pagination-responsive {
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 .pagination-responsive .page-item {
@@ -104,6 +104,11 @@ header("X-Robots-Tag:index, follow");
 </head>
 <body class="">
 <x-component-name/>
+
+<div class="scrollbar" id="style-6">
+    <div class="force-overflow">
+
+
 <div class="container bg-light">
     <div class="row mt-3 justify-content-center">
         <div class="col-12">
@@ -134,6 +139,8 @@ header("X-Robots-Tag:index, follow");
             @endforeach
         </div>
     @endif
+</div>
+</div>
 </div>
 
 

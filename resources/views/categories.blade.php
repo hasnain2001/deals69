@@ -55,7 +55,8 @@ header("X-Robots-Tag:index, follow");
 
     <div class="card shadow p-3">
                             <div class="card-body">
-                               <a href="{{ route('related_category'. Str::slug($category->title)) }}" class="text-decoration-none">
+                                <a href="{{ route('related_category', ['title' => Str::slug($category->title)]) }}" class="text-decoration-none">
+                               
 
                                 @if ($category->category_image)
                                 <img class=" rounded-circle"

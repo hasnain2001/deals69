@@ -21,12 +21,12 @@ Route::get('/about', function () {
 
 Route::get('/privacy', function () {
     return view('privacy');
-});
+})->name('privacy');
 
 
 Route::get('/term-and-condition', function () {
     return view('term-and-condition');
-});
+})->name('term_and_condition');
 
 
 // Route for the contact
@@ -49,7 +49,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/store/{name}', 'StoreDetails')->name('store_details');
     Route::get('/coupons', 'coupons')->name('coupons-store');
     Route::get('/categories', 'categories')->name('categories');
-    Route::get('/related_categories/{title}', 'RelatedCategoryStores')->name('related_category');
+    Route::get('/category/{title}', 'RelatedCategoryStores')->name('related_category');
 
 
 

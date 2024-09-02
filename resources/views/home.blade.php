@@ -5,19 +5,88 @@
 @section('main-content')
 
 <style>
-    .coupon-card {
-        height: 400px; /* Adjust the height as per your requirement */
-    }
+/* Coupon Card */
+.coupon-card {
+    height: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
-    .coupon-card .card-body {
-        padding: 20px; /* Adjust padding as needed */
-    }
+.coupon-card:hover {
+    transform: translateY(-5px);
+}
 
-    .store-logo img {
-        max-width: 100%; /* Ensure the store logo is responsive */
-        max-height: 100%; /* Ensure the store logo is responsive */
-    }
+/* Store Logo */
+.store-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.store-image {
+    max-width: 100px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* Text Styling */
+.coupon-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.coupon-description {
+    font-size: 1rem;
+    color: #666;
+    flex-grow: 1; /* To make sure it grows to fill the space */
+}
+
+.coupon-discount {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.coupon-buttons .btn {
+    margin: 0 5px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.get-deal-button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.get-deal-button:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.visit-store-button {
+    background-color: #fff;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.visit-store-button:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
 </style>
+
 
 
 <div class="container">
@@ -72,71 +141,89 @@
             </div>
 
         </div>
-
         <div class="col-md-8">
             <div class="container">
-            <h3>Top Coupons</h3></div>
+                <h3>Top Coupons</h3>
+            </div>
 
+            <div class="row">
+                @foreach ($Coupons as $coupon)
+                <div class="col-md-4 mb-3">
+                    <div class="card coupon-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="store-logo text-center mb-3">
+                                @php
+                                $store = App\Models\Stores::where('name', $coupon->store)->first();
+                                @endphp
+                                @if ($store && $store->store_image)
+                                <img src="{{ asset('uploads/store/' . $store->store_image) }}" class="store-image" alt="{{ $store->name }} Logo">
+                                @else
+                                <span class="no-image-placeholder">No Logo Available</span>
+                                @endif
+                            </div>
+                            <h5 class="card-title coupon-title text-left">{{ $coupon->name }}</h5>
+                            <p class="card-text coupon-description text-left">{{ $coupon->description }}</p>
 
-<div class="row">
-    @foreach ($Coupons as $coupon)
-    <div class="col-md-4 mb-3">
-        <div class="card coupon-card">
-            <div class="card-body">
-                <div class="store-logo">
-                    @php
-                    $store = App\Models\Stores::where('name', $coupon->store)->first();
-                    @endphp
-                    @if ($store && $store->store_image)
-                    <img src="{{ asset('uploads/store/' . $store->store_image) }}" class="store-image" alt="{{ $store->name }} Logo" >
-                    @else
-                    <span class="no-image-placeholder">No Logo Available</span>
-                    @endif
+                            <div class="mt-auto">
+                                <p class="card-text coupon-discount text-left text-muted">Discount: {{ $coupon->discount }}</p>
+                                <div class="coupon-buttons d-flex justify-content-start">
+                                    @if ($coupon->code)
+                                    <a href="#" class="btn btn-primary get-deal-button" onclick="openCouponInNewTab('{{ $coupon->destination_url }}', '{{ $coupon->id }}')">Code & Activate</a>
+                                    @else
+                                    <a href="{{ $coupon->destination_url }}" class="btn btn-primary get-deal-button" target="_blank">Get Deal</a>
+                                    @endif
+                                    @if ($store)
+                                    <a href="{{ route('store_details', ['name' => Str::slug($coupon->store)]) }}" class="btn btn-outline-primary btn-sm visit-store-button ml-2">Visit Store</a>
+                                    @else
+                                    <a href="#" class="btn btn-sm btn-outline-primary visit-store-button ml-2">No Store Name</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h5 class="card-title coupon-title text-primary">{{ $coupon->title }}</h5>
-                <p class="card-text coupon-description">{{ $coupon->description }}</p>
-                <p class="card-text coupon-discount text-muted">Discount: {{ $coupon->discount }}</p>
-                <div class="coupon-buttons">
-                    @if ($coupon->code)
-                    <a href="#" class="btn btn-primary get-deal-button" onclick="openCouponInNewTab('{{ $coupon->destination_url }}', '{{ $coupon->id }}')">Code & Activate</a>
-                    @else
-                    <a href="{{ $coupon->destination_url }}" class="btn btn-primary get-deal-button" target="_blank">Get Deal</a>
-                    @endif
-                    @if ($store)
-                    <a href="{{ route('store_details', ['name' => Str::slug($storeItem->name)]) }}"  class="btn btn-outline-primary visit-store-button">Visit Store</a>
-                    @endif
-                </div>
+                @endforeach
             </div>
         </div>
-    </div>
-    @if (($loop->index + 1) % 3 == 0)
-    <div class="w-100"></div>
-    @endif
-    @endforeach
-</div>
 
-        </div>
+
     </div>
 </div>
-<br><br>
 
 
 
-<br><br><br>
-
-
-      <h3 class="text-center mb-5">Trending  Blogs</h3>  <div class="row gx-4 gy-4">  @foreach ($home as $blog)
-          <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden">  <img src="{{ asset($blog->category_image) }}" alt="Blog Post Image" class=" shadow card-img-top img-fluid" style="max-width: 100%; height: 200px; object-fit: cover;">
-              <div class="card-body d-flex flex-column justify-content-between">
-                <h5 class="card-title">{{ $blog->title }}</h5>
-                <p class="card-text text-muted">{{ Str::limit($blog->excerpt, 100) }}</p>  <a href="{{ route('blog-details', ['title' => Str::slug($blog->title)]) }}" class="btn btn-primary mt-auto">Read More</a>
-              </div>
-            </div>
-          </div>
-        @endforeach
+      <div class="col-12" >
+        <h2 class="fw-bold home_ts_h2 text-center"> Shopping Hacks & Savings Tips & Tricks</h2>
       </div>
+      <div class="container bg-light">
 
+          <div class="carousel-inner bg-light">
+            @foreach ($home->chunk(2000) as $chunk)
+              <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                <div class="d-flex flex-row flex-nowrap overflow-auto">
+                  @foreach ($chunk as $blog)
+                    <div class="col-md-4 mb-3 flex-shrink-0">
+                      <div class="card shadow-sm h-100">
+                        <img class="cardimg card-img-top img-fluid" src="{{ asset($blog->category_image) }}" alt="Blog Post Image" style="height:200px; width:450px;">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ $blog->title }}</h5>
+                          <p class="card-text">{{ $blog->excerpt }}</p>
+                                @if ($blog->slug)
+                          <a href="{{ route('blog-details', ['slug' => Str::slug($blog->slug)]) }}" class="btn btn-dark stretched-link">Read More</a>
+                           @else
+                          <a href="javascript:;" class="btn btn-dark stretched-link"> no slug</a>
+                               @endif
+                        </div>
+                      </div>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
+            @endforeach
+          </div>
+
+        </div>
+      </div>
 
 
 <br><br>

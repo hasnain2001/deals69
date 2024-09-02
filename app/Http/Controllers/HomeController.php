@@ -7,15 +7,23 @@ use App\Models\Coupons;
 use App\Models\Stores;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index() {
         $stores = Stores::latest()->paginate(15);
 
-        $blogs = Blog::latest()->paginate(10);
-        $home = Blog::paginate(10);
-          $Coupons = Coupons::latest()->paginate(15);
+        $blogs = Blog::latest()->paginate(9);
+        $home = Blog::paginate(9);
+
+          $Coupons = Coupons::whereIn('id', function($query) {
+            $query->select(DB::raw('MAX(id)'))
+                  ->from('coupons')
+                  ->groupBy('store');
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(21);
         return view('home', compact('stores',  'blogs','Coupons','home'));
     }
 
@@ -109,19 +117,23 @@ public function topStores(Request $request)
     }
 
 
- public function RelatedCategoryStores($meta_tag)
-{
-    // Convert the meta tag to a slug
-    $slug = Str::slug($meta_tag);
+public function RelatedCategoryStores($name) {
+    $slug = Str::slug($name);
+    $title = ucwords(str_replace('-', ' ', $slug));
 
-    // Convert the slug back to title case
-    $name = ucwords(str_replace('-', ' ', $slug));
+    // Fetch the store
+    $category = Categories::where('title', $title)->first();
 
-    // Retrieve stores related to the category
-    $stores = Stores::where('category', $name)->get();
 
-    // Pass the stores and category name to the view
-    return view('related_categories', compact('stores', 'name'));
+    if (!$category) {
+return redirect('404');
+    }
+
+    // Fetch related coupons and stores
+    $stores = Stores::where('category', $title)->get();
+
+
+    return view('related_categories', compact('category', 'stores' ));
 }
 
 
