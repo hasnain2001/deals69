@@ -12,69 +12,28 @@
  <meta name="robots" content="index, follow">
 
 <link rel="canonical" href="https://deals69.com/blog">
-   <link rel="icon" href="{{ asset('front/assets/images/icons.png') }}" type="image/x-icon">
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
+   <link rel="icon" href="{{ asset('images/icon.png') }}" type="image/x-icon">
+
   <style>
 
-body{
-     font-family: Nunito,Normal;
-}
-    
-nav{
 
-  background-color:rgb(93, 25, 130);
+main{
+     font-family: 'Segoe UI';
 }
 
-  
-   
-        .form-container {
-            max-width: 600px; /* Adjust max-width as needed */
-            width: 100%;
-        }
-        .form-container form {
-            display: flex;
-            justify-content: center; /* Center contents horizontally */
-            align-items: center;
-        }
-        .social-icons a {
-            color: white; /* Change icon color as needed */
-            margin-left: 10px; /* Adjust margin between icons as needed */
-            font-size: 25px; /* Adjust icon size as needed */
-        }
-    .navbar{
-            background-color: rgb(87, 18, 124);
-        }
-       
-        .form-container {
-            max-width: 600px; /* Adjust max-width as needed */
-            width: 100%;
-        }
-        .form-container form {
-            display: flex;
-            justify-content: center; /* Center contents horizontally */
-            align-items: center;
-        }
-        .social-icons a {
-            color: white; /* Change icon color as needed */
-            margin-left: 10px; /* Adjust margin between icons as needed */
-            font-size: 25px; /* Adjust icon size as needed */
-        }
-   
+
   </style>
 </head>
 <body>
 <x-component-name/>
-<br>   <b   <br>   <br>
+<main>
+<br>    <br>   <br>
    <div class="container bg-light">
            <div class="container ">
     <h1>Terms And Condition</h1>
     </div>
   </section>
-  <br>   <b   <br>   <br>
+  <br>    <br>   <br>
     <section class="welcome-section">
       <h2>Welcome to Honeycombdeals</h2>
       <p>These Terms & Conditions ("Terms") govern your use of the Honeycombdeals website (the "Website") and all related services provided by Honeycombdeals ("Honeycombdeals", "we", "us", or "our"). By accessing or using the Website, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the Website.</p>
@@ -100,7 +59,7 @@ nav{
       <p>By submitting content to the Website, including but not limited to reviews, comments, and ratings, you grant Honeycombdeals a non-exclusive, royalty-free, perpetual, irrevocable, and fully sublicensable right to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such content throughout the world in any media.
 </p>
     </section>
-    
+
      <section class="welcome-section">
       <h2>6. Links to Third-Party Websites</h2>
       <p>The Website may contain links to third-party websites or resources. You acknowledge and agree that Honeycombdeals is not responsible or liable for: (i) the availability or accuracy of such websites or resources; or (ii) the content, products, or services on or available from such websites or resources. Links to such websites or resources do not imply any endorsement by Honeycombdeals of such websites or resources or the content, products, or services available from such websites or resources. You acknowledge sole responsibility for and assume all risk arising from your use of any such websites or resources.
@@ -116,7 +75,7 @@ nav{
       <p>In no event shall Honeycombdeals, its officers, directors, employees, or agents, be liable to you for any direct, indirect, incidental, special, punitive, or consequential damages whatsoever resulting from any (i) errors, mistakes, or inaccuracies of content; (ii) personal injury or property damage, of any nature whatsoever, resulting from your access to and use of the Website; (iii) any unauthorized access to or use of our secure servers and/or any and all personal information stored therein; (iv) any interruption or cessation of transmission to or from the Website; (v) any bugs, viruses, trojan horses, or the like, which may be transmitted to or through the Website by any third party; and/or (vi) any errors or omissions in any content or for any loss or damage of any kind incurred as a result of your use of any content posted, emailed, transmitted, or otherwise made available via the Website, whether based on warranty, contract, tort, or any other legal theory, and whether or not the company is advised of the possibility of such damages.
 </p>
     </section>
-    
+
         <section class="welcome-section">
       <h2>9. Indemnification</h2>
       <p>You agree to indemnify and hold harmless Honeycombdeals, its officers, directors, employees, and agents, from and against any claims, liabilities, damages, losses, and expenses, including without limitation reasonable legal and accounting fees, arising out of or in any way connected with your access to or use of the Website, or your violation of these Terms.
@@ -142,24 +101,18 @@ Honeycombdeals reserves the right to modify or replace these Terms at any time. 
 If you have any questions about these Terms, please contact us at:
 
   <ul>
-                <li>Email: contact@honeycombdeals.com</li>
-                <li>Emal:honeycombdeal@gmail.comss</li>
+                <li>Email: deeaalss69@gmail.com</li>
+                <li>Emal:deeaalss69@gmail.com</li>
             </ul>
 
 
 </p>
     </section>
-
+</main>
 
 </div>
- <br>   <b   <br>   <br><br>   <b   <br>   <br>
+ <br>
   <x-footer/>
-  <!-- Bootstrap JS and jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

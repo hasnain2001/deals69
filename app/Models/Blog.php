@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
-   protected $fillable = ['title', 'category_image','content'];
+   protected $fillable = ['title', 'slug', 'category_image','content'];
 
    public $timestamps = true;
 
-  
-    
+
+
 }

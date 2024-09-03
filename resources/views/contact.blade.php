@@ -13,22 +13,15 @@ header("X-Robots-Tag:index, follow");
 
   <meta name="author" content="John Doe">
  <meta name="robots" content="index, follow">
- 
+
  <link rel="canonical" href="https://deals69.com/contact">
      <link rel="icon" href="{{ asset('front/assets/images/icons.png') }}" type="image/x-icon">
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Bootstrap CSS v5.2.1 -->
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
-    
-           <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
 <meta name='impact-site-verification' value='de4ec733-7974-4b7d-a7aa-611819cb6e0f'>
 
 
@@ -43,7 +36,7 @@ header("X-Robots-Tag:index, follow");
 <div class="container">
     <div class="row">
         <div class="col-md-6 contact_image">
-            <img src="{{ asset('front/assets/images/contact.jpg') }}" class="img-fluid" alt="">
+            <img src="{{ asset('images/contact.jpg') }}" class="img-fluid" alt="" style="height: 300px; width:100;">
         </div>
         <div class="col-md-6 wrapper">
             @if(session('success'))
@@ -86,7 +79,7 @@ header("X-Robots-Tag:index, follow");
 <br>
 
 
-    
+
     <br>
   <x-footer/>
      <script>

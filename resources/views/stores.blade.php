@@ -31,75 +31,84 @@ header("X-Robots-Tag:index, follow");
     .bg-light {
         background-color: #f8f9fa;
     }
-
-    .card-list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    .card-list a {
-        text-decoration: none;
-        color: inherit;
-        width: 100%;
-        max-width: 200px;
-        margin-bottom: 20px;
-        padding: 10px;
-        border-radius: 5px;
-
-        transition: all 0.3s ease;
-    }
-
-    .card-list a:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .stores {
-        width: 100%;
-      height: auto;
-  border-radius: 60%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-    }
-.stores:hover {
-  transform: scale(1.05);
+    .store-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 5%;
+    color: black;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
-    .card-title {
-        text-align: center;
-        margin-top: 10px;
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
 
-    @media (min-width: 768px) {
-        .card-list {
-            justify-content: flex-start;
-        }
+.store-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-        .card-list a {
-            width: calc(25% - 20px);
-            margin-right: 20px;
-            margin-bottom: 20px;
-        }
 
-        .card-list a:nth-child(4n) {
-            margin-right: 0;
-        }
-    }
+.store-card:hover {
+    color: black;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-    .pagination-responsive {
+.card-title {
+    margin-top: 10px;
+    font-size: 1rem; /* Reduced the font size to fit more items in a row */
+    font-weight: bold;
+}
+
+.card-list {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.pagination-responsive .page-item {
-    margin: 2px; /* Add margin for better spacing */
+@media (min-width: 768px) {
+    .card-list {
+        justify-content: flex-start;
+    }
+
+    .card-list .col-6 {
+        width: calc(16.66% - 10px); /* Adjusted width to fit more items */
+        margin-right: 10px;
+    }
+
+    .card-list .col-6:nth-child(6n) {
+        margin-right: 0;
+    }
 }
 
-.pagination-responsive .page-link {
-    padding: 8px 12px; /* Adjust padding for better touch target size */
-}
-
+        .pagination-responsive {
+    flex-wrap: wrap;
+  }
+  .page-item {
+    margin: 0.2rem;
+  }
+  .page-link {
+    border-radius: 0.375rem;
+  }
+  .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+  }
+  .page-link {
+    color: #0d6efd;
+  }
+  .page-link:hover {
+    background-color: #e9ecef;
+    color: #0d6efd;
+  }
     </style>
 </head>
 <body class="">
@@ -108,18 +117,19 @@ header("X-Robots-Tag:index, follow");
 <div class="scrollbar" id="style-6">
     <div class="force-overflow">
 
-
-<div class="container bg-light">
-    <div class="row mt-3 justify-content-center">
-        <div class="col-12">
-            <ul class="pagination pagination-responsive justify-content-center">
-                @foreach(range('A', 'Z') as $letter)
-                    <li class="page-item"><a class="page-link" href="{{ route('stores', ['letter' => $letter]) }}">{{ $letter }}</a></li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-</div>
+        <div class="container bg-light">
+            <div class="row mt-3 justify-content-center">
+              <div class="col-12">
+                <ul class="pagination pagination-responsive justify-content-center">
+                  @foreach(range('A', 'Z') as $letter)
+                    <li class="page-item {{ request()->get('letter') == $letter ? 'active' : '' }}">
+                      <a class="page-link" href="{{ route('stores', ['letter' => $letter]) }}">{{ $letter }}</a>
+                    </li>
+                  @endforeach
+                </ul>
+              </div>
+            </div>
+          </div>
 
 <div class="container">
     <p class="h5 m-0">Total stores: <span class="fw-bold">{{ $stores->total() }}</span></p>
@@ -130,23 +140,28 @@ header("X-Robots-Tag:index, follow");
             No stores found.
         </div>
     @else
-        <div class="card-list">
+        <div class="row card-list">
             @foreach ($stores as $store)
-                <a href="{{ route('store_details', ['name' => Str::slug($store->name)]) }}" class="text-decoration-none">
-                    <img class="stores shadow" src="{{ $store->store_image ? asset('uploads/store/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" alt="Card Image">
-                    <h5 class="card-title mt-3 mx-2">{{ $store->name ?: "Title not found" }}</h5>
-                </a>
+                @php
+                    $storeUrl = $store->slug
+                        ? route('store_details', ['slug' => Str::slug($store->slug)])
+                        : '#';
+                @endphp
+                <div class="col-6 col-md-3 col-lg-2 mb-4">
+                    <a href="{{ $storeUrl }}" class="text-decoration-none store-card">
+                        <img src="{{ $store->store_image ? asset('uploads/store/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}"
+                             alt="{{ $store->name ?: 'Store Image' }}" class="stores">
+                        <h5 class="card-title">{{ $store->name ?: "Title not found" }}</h5>
+                    </a>
+                </div>
             @endforeach
         </div>
     @endif
-</div>
-</div>
 </div>
 
 
 
 <x-footer/>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
 </body>
 </html>

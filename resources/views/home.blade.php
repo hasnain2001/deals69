@@ -95,10 +95,15 @@
         <button id="prev-slide" class="slide-button material-symbols-rounded"></button>
         <ul class="image-list">
             @foreach ($stores as $storeItem)
+                @php
+                    $storeUrl = $storeItem->slug
+                        ? route('store_details', ['slug' => Str::slug($storeItem->slug)])
+                        : '#';
+                @endphp
                 <li>
-                    <a href="{{ route('store_details', ['name' => Str::slug($storeItem->name)]) }}" class="text-dark text-decoration-none">
-                        <img class="image-item" src="{{ asset('uploads/store/' . $storeItem->store_image) }}" alt="{{ $storeItem->name }}"/>
-                        <span class="fw-bold d-block text-center">{{ $storeItem->name }}</span>
+                    <a href="{{ $storeUrl }}" class="text-decoration-none">
+                        <img class="image-item" src="{{ $storeItem->store_image ? asset('uploads/store/' . $storeItem->store_image) : asset('front/assets/images/no-image-found.jpg') }}" alt="{{ $storeItem->name }}"/>
+                        <span class="fw-bold d-block text-center">{{ $storeItem->name ?: 'Title not found' }}</span>
                     </a>
                 </li>
             @endforeach
@@ -111,6 +116,7 @@
         </div>
     </div>
 </div>
+
 
 
 
@@ -129,11 +135,16 @@
                     <div class="card blog-card">
                         <div class="card-body">
                             <div class="blog-image">
+
                                 <img class="img-fluid rounded shadow" src="{{ asset($blog->category_image) }}" alt="Blog Post Image "  style="max-width:700; height:auto; object-fit: cover;" >
                             </div>
                             <h5 class="card-title">{{ $blog->title }}</h5>
                             <p class="card-text">{{ $blog->excerpt }}</p>
-                            <a href="{{ route('blog-details', ['title' => Str::slug($blog->title)]) }}" class="btn btn-dark">Read More</a>
+                            @if ($blog->slug)
+                            <a href="{{ route('blog-details', ['slug' => Str::slug($blog->slug)]) }}" class="btn btn-dark stretched-link">Read More</a>
+                             @else
+                            <a href="javascript:;" class="btn btn-dark stretched-link"> no slug/url</a>
+                                 @endif
                         </div>
                     </div>
                 </div>
@@ -153,14 +164,15 @@
                         <div class="card-body d-flex flex-column">
                             <div class="store-logo text-center mb-3">
                                 @php
-                                $store = App\Models\Stores::where('name', $coupon->store)->first();
+                                $store = App\Models\Stores::where('slug', $coupon->store)->first();
                                 @endphp
                                 @if ($store && $store->store_image)
                                 <img src="{{ asset('uploads/store/' . $store->store_image) }}" class="store-image" alt="{{ $store->name }} Logo">
                                 @else
-                                <span class="no-image-placeholder">No Logo Available</span>
+                                <span class="no-image-placeholder">Store  iS not Available </span>
                                 @endif
                             </div>
+                            <span>{{ $coupon->store }}</span>
                             <h5 class="card-title coupon-title text-left">{{ $coupon->name }}</h5>
                             <p class="card-text coupon-description text-left">{{ $coupon->description }}</p>
 
@@ -173,9 +185,9 @@
                                     <a href="{{ $coupon->destination_url }}" class="btn btn-primary get-deal-button" target="_blank">Get Deal</a>
                                     @endif
                                     @if ($store)
-                                    <a href="{{ route('store_details', ['name' => Str::slug($coupon->store)]) }}" class="btn btn-outline-primary btn-sm visit-store-button ml-2">Visit Store</a>
+                                    <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="btn btn-outline-primary btn-sm visit-store-button ml-2">Visit Store</a>
                                     @else
-                                    <a href="#" class="btn btn-sm btn-outline-primary visit-store-button ml-2">No Store Name</a>
+                                    <a href="#" class="btn btn-sm btn-outline-primary visit-store-button ml-2">No Store found </a>
                                     @endif
                                 </div>
                             </div>

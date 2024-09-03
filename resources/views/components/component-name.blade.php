@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2/css/bootstrap.min.css') }}">
 <style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
     /* width */
 ::-webkit-scrollbar {
   width: 20px;
@@ -29,6 +33,23 @@
 ::-webkit-scrollbar-thumb:hover {
   background:#126c7e;
 }
+
+.loader {
+  width: 120px;
+  height: 20px;
+  background: linear-gradient(#000 0 0) 0/0% no-repeat #ddd;
+  animation: l1 2s infinite linear;
+  position: fixed; /* Position it in the center */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* Ensure it appears above everything else */
+}
+
+@keyframes l1 {
+    100% { background-size: 100%; }
+}
+
 </style>
 </head>
 <body>
@@ -69,7 +90,16 @@
             </div>
         </div>
     </nav>
+   <!-- Loader -->
+   <div id="loader" class="loader"></div>
 
+   <script>
+     // Hide the loader once the page is fully loaded
+     window.addEventListener('load', function() {
+       var loader = document.getElementById('loader');
+       loader.style.display = 'none';
+     });
+   </script>
 
 </body>
 </html>

@@ -12,13 +12,30 @@ class CouponsController extends Controller
 {
     public function coupon(Request $request) {
         if ($request->ajax()) {
-            $coupons = Coupons::all();
+            $coupons = Coupons::get();
             return response()->json($coupons);
         }
 
-      $coupons = Coupons::orderByRaw('CAST(`order` AS SIGNED) asc')->get();
+        // Get distinct store names only
+        $couponstore = Coupons::select('store')->distinct()->get();
+        $selectedCoupon = $request->input('store');
 
-        return view('admin.coupons.index', compact('coupons'));
+        // Initialize query
+        $productsQuery = Coupons::query();
+
+        // Filter by selected store if any
+        if ($selectedCoupon) {
+            $productsQuery->where('store', $selectedCoupon);
+        }
+
+
+        $coupons = $productsQuery->orderBy('store')
+            ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+            ->orderBy('created_at', 'desc') // Sort by latest created
+            ->limit(1000)
+            ->get();
+
+        return view('admin.coupons.index', compact('coupons','couponstore','selectedCoupon'));
     }
 
 

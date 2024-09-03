@@ -22,6 +22,17 @@
                     <b>{{ session('success') }}</b>
                 </div>
             @endif
+
+            @if ($errors->any())
+            <div  class="alert alert-danger" >
+                <strong>Validation error(s):</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <form name="UpdateStore" id="UpdateStore" method="POST" enctype="multipart/form-data" action="{{ route('admin.store.update', $stores->id) }}">
                 @csrf
                 <div class="row">
@@ -33,22 +44,26 @@
                                     <input type="text" class="form-control" name="name" id="name" value="{{ $stores->name }}" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="name">Url/Slug <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="slug" id="name" value="{{ $stores->slug }}" placeholder="define your url here " required>
+                                </div>
+                                <div class="form-group">
                                     <label for="description">Description</label>
                                     <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" required>{{ $stores->description }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="url">URL <span class="text-danger">*</span></label>
-                                    <input type="url" class="form-control" name="url" id="url" value="{{ $stores->url }} required">
+                                    <input type="url" class="form-control" name="url" id="url" value="{{ $stores->url }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
-                                    <input required type="url" class="form-control" name="destination_url" id="destination_url" value="{{ $stores->destination_url }} ">
+                                    <input  type="url" class="form-control" name="destination_url" id="destination_url" value="{{ $stores->destination_url }} " required>
                                 </div>
                                 <div class="form-group">
                                     <label for="category">Category <span class="text-danger">*</span></label>
                                     <select name="category" id="category" class="form-control">
                                         <option value="" disabled selected>{{ $stores->category }}</option>
-                                        @foreach($categories as $category) 
+                                        @foreach($categories as $category)
                                             <option value="{{ $category->title }}">{{ $category->title }}</option>
                                         @endforeach
                                     </select>
@@ -58,12 +73,12 @@
        @error('title')
         <span class="text-danger">{{ $message }}</span>
     @enderror
-    <input type="text" class="form-control" name="title" id="name">
- 
+    <input type="text" class="form-control" name="title" id="name" value="{{ $stores->title }} ">
+
 </div>
 
                                 <div class="form-group">
-                                    <label for="meta_tag">Meta Title <span class="text-danger">*</span></label>
+                                    <label for="meta_tag">Meta Tag <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="meta_tag" id="meta_tag" value="{{ $stores->meta_tag }}">
                                 </div>
                                 <div class="form-group">
@@ -76,7 +91,7 @@
         <span class="text-danger">{{ $message }}</span>
     @enderror
     <textarea name="meta_description" id="meta_description" class="form-control" cols="30" rows="5" style="resize: none;">{{ old('meta_description', $stores->meta_description) }}</textarea>
-  
+
 </div>
 
                             </div>
@@ -98,15 +113,45 @@
                                     <label for="network">Network <span class="text-danger">*</span></label>
                                     <select name="network" id="network" class="form-control">
                                         <option value="" disabled selected>{{ $stores->network }}</option>
-                                        @foreach($networks as $network) 
+                                        @foreach($networks as $network)
                                             <option value="{{ $network->title }}">{{ $network->title }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="store_image">Store Image <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control" name="store_image" id="store_image" required>
-                                </div>
+                           <div class="form-group">
+    <label for="store_image">Store Image <span class="text-danger">*</span></label>
+    <input type="file" class="form-control" name="store_image" id="store_image">
+    @if($stores->store_image)
+        <input type="hidden" name="previous_image" value="{{ $stores->store_image }}">
+        <img src="{{ asset('uploads/store/'.$stores->store_image) }}" alt="Current Store Image" style="max-width: 200px;">
+    @else
+        <p>No image uploaded</p>
+    @endif
+</div>
+
+<div id="imagePreview"></div>
+
+<script>
+    // JavaScript to preview the selected image
+    document.getElementById('store_image').addEventListener('change', function() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var imgElement = document.createElement('img');
+                imgElement.setAttribute('src', event.target.result);
+                imgElement.setAttribute('class', 'preview-image'); // Optional: Add CSS class for styling
+                imgElement.setAttribute('style', 'max-width: 100%; height: auto;'); // Optional: Add styling
+                document.getElementById('imagePreview').innerHTML = ''; // Clear previous preview, if any
+                document.getElementById('imagePreview').appendChild(imgElement);
+            }
+            reader.readAsDataURL(file);
+        } else {
+            document.getElementById('imagePreview').innerHTML = ''; // Clear preview if no file selected
+        }
+    });
+</script>
+
                             </div>
                         </div>
                     </div>

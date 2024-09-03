@@ -72,8 +72,8 @@
                                     <label for="store">Store <span class="text-danger">*</span></label>
                                     <select name="store" id="store" class="form-control">
                                         <option value="" disabled selected>{{ $coupons->store }}</option>
-                                        @foreach($stores as $store) 
-                                            <option value="{{ $store->name }}">{{ $store->name }}</option>
+                                        @foreach($stores as $store)
+                                            <option value="{{ $store->slug }}">{{ $store->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

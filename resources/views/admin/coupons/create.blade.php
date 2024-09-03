@@ -59,7 +59,7 @@
                                     <input type="radio" name="status" id="enable" value="enable" required>&nbsp;<label for="enable">Enable</label>
                                     <input type="radio" name="status" id="disable" value="disable">&nbsp;<label for="disable">Disable</label>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="authentication">Authentication</label><br>
                                     <input type="checkbox" name="authentication[]" id="never_expire" value="never_expire">&nbsp;<label for="never_expire">Never Expire</label><br>
@@ -73,8 +73,8 @@
                                     <label for="store">Store <span class="text-danger">*</span></label>
                                     <select name="store" id="store" class="form-control">
                                         <option value="" disabled selected>--Select Store--</option>
-                                        @foreach($stores as $store) 
-                                            <option value="{{ $store->name }}">{{ $store->name }}</option>
+                                        @foreach($stores as $store)
+                                            <option value="{{ $store->slug }}">{{ $store->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

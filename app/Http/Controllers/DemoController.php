@@ -1,20 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Stores;
-use Illuminate\Mail\Mailables\Content;
+use Illuminate\Http\Request;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+
+
+
 
 class DemoController extends Controller
 {
 
+    public function blog_home()
+    {
+          $blogs = Blog::paginate(5);
+    $chunks = Stores::latest()->limit(25)->get();
 
-
-
-
+        return view('blog', compact('blogs', 'chunks')); // Pass both data to the view
+    }
 
     public function blog() {
         $blogs = Blog::all();
@@ -22,96 +30,110 @@ class DemoController extends Controller
     }
 
 
+public function blog_show($slug) {
+    // Decode the URL-encoded title
+    $decodedTitle = str_replace('-', ' ', $slug);
+
+
+    $blog = Blog::where('slug', $decodedTitle)->firstOrFail();
+    if (!$blog) {
+        return redirect('404');
+             }
+     $chunks = Stores::latest()->limit(25)->get();
+
+
+    return view('blog-details', compact('blog','chunks'));
+}
+
     public function create() {
         return view('admin.Blog.create');
     }
-
     public function store(Request $request)
     {
-        // Validate the incoming request data
-      $validatedData = $request->validate([
-        'title' => 'required|string|max:255', // Adjust max length as needed
-        'content' => 'required|string',
-        'category_image' => 'required|image|mimes:jpeg,png,jpg,gif',
-        'meta_title' => 'nullable|string|max:65', // Meta title validation
-        'meta_description' => 'nullable|string|max:155', // Meta description validation
-        'meta_keyword' => 'nullable|string|max:255', // Meta keyword validation
+        // Validate request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+        'slug' => 'required|string|max:255|unique:blogs,slug',
+            'content' => 'required|string',
+            'category_image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'meta_title' => 'nullable|string|max:65',
+            'meta_description' => 'nullable|string|max:155',
+            'meta_keyword' => 'nullable|string|max:255',
         ]);
 
-        // Handle file upload
+        $imagePath = null;
         if ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imagePath = public_path('uploads/' . $imageName);
+
+            // Move the uploaded file to the uploads directory
             $image->move(public_path('uploads'), $imageName);
-            $imagePath = 'uploads/'.$imageName;
-        } else {
-            $imagePath = null;
-        }
 
-        // Create a new instance of the Blog model and assign values from the request
-        $blog = new Blog();
-        $blog->title = $request->input('title');
+            if (file_exists($imagePath)) {
+                // Use Imagick to create a new image instance
+                $imageInstance = ImageManager::imagick()->read($imagePath);
 
-        $blog->category_image = $imagePath;
-           $blog->meta_title = $request->input('meta_title');
-    $blog->meta_description = $request->input('meta_description');
-    $blog->meta_keyword = $request->input('meta_keyword');
-        // Assign file path to category_image
+                // Resize the image to fit within 400x300 pixels while preserving aspect ratio
+                $imageInstance->resize(400, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize(); // Prevent upsizing
+                });
 
-      // Process and manipulate HTML content
-// Process and manipulate HTML content
-$content = $request->input('content');
+                // Save the resized image
+                $imageInstance->save($imagePath);
 
-// Remove invalid HTML tags (e.g., <o:p>)
-$content = preg_replace('/<o:p[^>]*>(.*?)<\/o:p>/', '', $content);
-
-$dom = new \DomDocument();
-$dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-// Continue with the rest of your code for image processing and saving
-
-
-$images = $dom->getElementsByTagName("img");
-foreach ($images as $img) {
-    $image_64 = $img->getAttribute('src');
-    $image_parts = explode(';', $image_64);
-
-    if (count($image_parts) > 0) {
-        $image_data = explode(',', $image_parts[1]);
-
-        if (count($image_data) > 1) {
-            $extension_parts = explode('.', $image_data[0]);
-            if (isset($extension_parts[1])) {
-                $extension = explode('/', $extension_parts[1])[1];
-                $replace = $image_data[0] . ';';
-                $image = str_replace($replace, '', $image_data[1]);
-                $image = str_replace(' ', '+', $image);
-                $imageName = Str::random(10) . '.' . $extension;
-
-                $image_name = "/upload/" . $imageName;
-                $path = public_path() . $imageName;
-
-                file_put_contents($path, base64_decode($image));
-
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $image_name);
+                // Optimize the image using the optimizer chain
+                $optimizer = OptimizerChainFactory::create();
+                $optimizer->optimize($imagePath);
             }
         }
-    }
-}
 
+        // Create new Blog instance
+        $blog = new Blog();
+        $blog->title = $request->input('title');
+        $blog->slug = $request->input('slug');
+        $blog->category_image = $imagePath ? 'uploads/' . $imageName : null;
+        $blog->meta_title = $request->input('meta_title');
+        $blog->meta_description = $request->input('meta_description');
+        $blog->meta_keyword = $request->input('meta_keyword');
 
-// Save the manipulated HTML content to the database
-$blog->content = $dom->saveHTML();
-$blog->save();
+        $content = $request->input('content');
 
-        session()->flash('<div class="alert alert-info" role="alert">
-        blog created succesfully
-        </div>');
+        // Load HTML content into DOMDocument
+        $dom = new \DOMDocument();
+        libxml_use_internal_errors(true); // Handle any HTML5-related parsing errors
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
 
-        // Redirect back with a success message
+        $images = $dom->getElementsByTagName('img');
+
+        foreach ($images as $img) {
+            if ($img instanceof \DOMElement) {
+                $image_64 = $img->getAttribute('src');
+                if (strpos($image_64, 'data:image/') === 0) {
+                    $image_parts = explode(';', $image_64);
+                    $image_type_aux = explode('/', $image_parts[0]);
+                    $image_type = $image_type_aux[1];
+                    $image_base64 = base64_decode(explode(',', $image_parts[1])[1]);
+                    $imageName = Str::random(10) . '.' . $image_type;
+                    $path = public_path('uploads/blog/') . $imageName;
+                    file_put_contents($path, $image_base64);
+
+                    $optimizerChain = OptimizerChainFactory::create();
+                    $optimizerChain->optimize($path);
+
+                    $img->setAttribute('src', asset('uploads/blog/' . $imageName));
+                }
+            }
+        }
+
+        $blog->content = $dom->saveHTML();
+        $blog->save();
         return redirect()->back()->with('success', 'Blog created successfully.');
     }
+
+
 
 
     public function edit($id)
@@ -120,67 +142,85 @@ $blog->save();
         return view('admin.Blog.edit', compact('blog'));
     }
 
-public function update(Request $request, $id)
-{
-    // Validate the incoming request data
-    $validatedData = $request->validate([
-        'title' => 'required',
-        'content' => 'required|string',
-        'category_image' => 'image|mimes:jpeg,png,jpg,gif',
-        'meta_title' => 'nullable|string|max:65', // Meta title validation
-        'meta_description' => 'nullable|string|max:155', // Meta description validation
-        'meta_keyword' => 'nullable|string|max:255', // Meta keyword validation
-    ]);
+    public function update(Request $request, $id)
+    {
+        // Find the blog to update
+        $blog = Blog::findOrFail($id);
 
-    // Find the blog post by ID
-    $blog = Blog::findOrFail($id);
+        // Validate request data
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:blogs,slug,' . $id,
+            'content' => 'required|string',
+            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'meta_title' => 'nullable|string|max:65',
+            'meta_description' => 'nullable|string|max:155',
+            'meta_keyword' => 'nullable|string|max:255',
+        ]);
 
-    // Handle file upload if a new image is provided
-    if ($request->hasFile('category_image')) {
-        $image = $request->file('category_image');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('uploads'), $imageName);
-        $imagePath = 'uploads/'.$imageName;
+        // Handle the image upload
+        $imagePath = $blog->category_image;
+        if ($request->hasFile('category_image')) {
+            $image = $request->file('category_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imagePath = 'uploads/' . $imageName;
+            $image->move(public_path('uploads'), $imageName);
+
+            // Resize and optimize the image
+            $imageFullPath = public_path($imagePath);
+            if (file_exists($imageFullPath)) {
+                $image = ImageManager::imagick()->read($imageFullPath);
+                $image->resize(400, 300);
+                $image->save($imageFullPath);
+
+                $optimizer = OptimizerChainFactory::create();
+                $optimizer->optimize($imageFullPath);
+            }
+        }
+
+        // Process content from CKEditor
+        $content = $request->input('content');
+
+        // Load HTML content into DOMDocument
+        $dom = new \DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+
+        // Process images in the content
+        $images = $dom->getElementsByTagName('img');
+        foreach ($images as $img) {
+            if ($img instanceof \DOMElement) {
+                $imageSrc = $img->getAttribute('src');
+                if (strpos($imageSrc, 'data:image/') === 0) {
+                    $imageParts = explode(';', $imageSrc);
+                    $imageTypeAux = explode('/', $imageParts[0]);
+                    $imageType = $imageTypeAux[1];
+                    $imageBase64 = base64_decode(explode(',', $imageParts[1])[1]);
+                    $imageName = Str::random(10) . '.' . $imageType;
+                    $path = public_path('uploads/') . $imageName;
+                    file_put_contents($path, $imageBase64);
+
+                    // Update the src attribute in the image tag
+                    $img->setAttribute('src', asset('uploads/' . $imageName));
+                }
+            }
+        }
+
+        // Save the updated content back to the blog
+        $blog->title = $request->input('title');
+        $blog->slug = $request->input('slug');
         $blog->category_image = $imagePath;
+        $blog->meta_title = $request->input('meta_title');
+        $blog->meta_description = $request->input('meta_description');
+        $blog->meta_keyword = $request->input('meta_keyword');
+        $blog->content = $dom->saveHTML();
+        $blog->save();
+
+        // Flash success message and redirect back
+        return redirect()->back()->with('success', 'Blog updated successfully.');
     }
 
-    // Process and manipulate HTML content
-    $content = $request->input('content');
-
-    // Preprocess HTML content if necessary
-    // For example, you can remove unwanted tags or encode special characters here
-
-    $dom = new \DomDocument();
-
-    // Suppress errors during HTML loading
-    libxml_use_internal_errors(true);
-
-    // Load HTML content into the DOMDocument
-    $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-    // Check for any errors during HTML loading
-    $errors = libxml_get_errors();
-    if (!empty($errors)) {
-        // Handle errors (e.g., log them, return an error response)
-        // You can also process the HTML content differently based on the errors
-    }
-
-    libxml_clear_errors();
-
-    // Save the manipulated HTML content to the database
-    $blog->content = $dom->saveHTML();
-
-    // Update meta fields
-    $blog->meta_title = $request->input('meta_title');
-    $blog->meta_description = $request->input('meta_description');
-    $blog->meta_keyword = $request->input('meta_keyword');
-
-    // Save the updated blog instance to the database
-    $blog->save();
-
-    // Redirect back with a success message
-    return redirect()->back()->with('success', 'Blog updated successfully.');
-}
 
 public function destroy($id)
 {
@@ -199,4 +239,32 @@ public function destroy($id)
         $blogs = Blog::paginate(10); // Paginate your data, specifying the number of items per page
         return view('admin.Blog', compact('blogs'));
     }
+       public function deleteSelected(Request $request)
+    {
+        $selectedIds = $request->input('selected_blogs');
+
+        if ($selectedIds) {
+            // Delete the selected blog entries
+            Blog::whereIn('id', $selectedIds)->delete();
+
+            return redirect()->back()->with('success', 'Selected blog entries deleted successfully.');
+        } else {
+            return redirect()->back()->with('error', 'No blog entries selected for deletion.');
+        }
+    }
+
+public function bulkDelete(Request $request)
+    {
+        $selectedBlogs = $request->input('selected_blogs');
+
+        if ($selectedBlogs) {
+            Blog::whereIn('id', $selectedBlogs)->delete();
+            return redirect()->back()->with('success', 'Selected blog entries deleted successfully.');
+        }
+
+       return redirect()->back()->with('error', 'No blog entries selected for deletion.');
+    }
+
+
+
 }

@@ -23,7 +23,7 @@
         <style>
             .sidebar-dark-primary {
             background-color:rgb(13,202,240)!important;
-            
+
         }
       aside p {
     color: black;
@@ -34,76 +34,7 @@ aside i{
     color:black;
 }
     </style>
-    <script nonce="4723767f-2c94-4dc4-8e8a-7dbfe205eac2">
-        try {
-            (function(w, d) {
-                ! function(bu, bv, bw, bx) {
-                    bu[bw] = bu[bw] || {};
-                    bu[bw].executed = [];
-                    bu.zaraz = {
-                        deferred: [],
-                        listeners: []
-                    };
-                    bu.zaraz.q = [];
-                    bu.zaraz._f = function(by) {
-                        return async function() {
-                            var bz = Array.prototype.slice.call(arguments);
-                            bu.zaraz.q.push({
-                                m: by,
-                                a: bz
-                            })
-                        }
-                    };
-                    for (const bA of ["track", "set", "debug"]) bu.zaraz[bA] = bu.zaraz._f(bA);
-                    bu.zaraz.init = () => {
-                        var bB = bv.getElementsByTagName(bx)[0],
-                            bC = bv.createElement(bx),
-                            bD = bv.getElementsByTagName("title")[0];
-                        bD && (bu[bw].t = bv.getElementsByTagName("title")[0].text);
-                        bu[bw].x = Math.random();
-                        bu[bw].w = bu.screen.width;
-                        bu[bw].h = bu.screen.height;
-                        bu[bw].j = bu.innerHeight;
-                        bu[bw].e = bu.innerWidth;
-                        bu[bw].l = bu.location.href;
-                        bu[bw].r = bv.referrer;
-                        bu[bw].k = bu.screen.colorDepth;
-                        bu[bw].n = bv.characterSet;
-                        bu[bw].o = (new Date).getTimezoneOffset();
-                        if (bu.dataLayer)
-                            for (const bH of Object.entries(Object.entries(dataLayer).reduce(((bI, bJ) => ({
-                                    ...bI[1],
-                                    ...bJ[1]
-                                })), {}))) zaraz.set(bH[0], bH[1], {
-                                scope: "page"
-                            });
-                        bu[bw].q = [];
-                        for (; bu.zaraz.q.length;) {
-                            const bK = bu.zaraz.q.shift();
-                            bu[bw].q.push(bK)
-                        }
-                        bC.defer = !0;
-                        for (const bL of [localStorage, sessionStorage]) Object.keys(bL || {}).filter((bN => bN
-                            .startsWith("_zaraz_"))).forEach((bM => {
-                            try {
-                                bu[bw]["z_" + bM.slice(7)] = JSON.parse(bL.getItem(bM))
-                            } catch {
-                                bu[bw]["z_" + bM.slice(7)] = bL.getItem(bM)
-                            }
-                        }));
-                        bC.referrerPolicy = "origin";
-                        bC.src = "../../../../cdn-cgi/zaraz/sd0d9.js?z=" + btoa(encodeURIComponent(JSON.stringify(
-                            bu[bw])));
-                        bB.parentNode.insertBefore(bC, bB)
-                    };
-                    ["complete", "interactive"].includes(bv.readyState) ? zaraz.init() : bu.addEventListener(
-                        "DOMContentLoaded", zaraz.init)
-                }(w, d, "zarazData", "script");
-            })(window, document)
-        } catch (e) {
-            throw fetch("/cdn-cgi/zaraz/t"), e;
-        };
-    </script>
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -113,11 +44,6 @@ aside i{
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-    </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -210,7 +136,7 @@ aside i{
                                 </li>
                             </ul>
                         </li>
-                        
+
                     </ul>
                 </nav>
 
@@ -233,7 +159,7 @@ aside i{
         <aside class="control-sidebar control-sidebar-dark">
 
         </aside>
-        
+
 
     </div>
 
@@ -277,9 +203,9 @@ aside i{
                 "autoWidth": false,
                 "responsive": true,
             });
-            
+
             $('#SearchTable').DataTable();
-            
+
              $( "#tablecontents" ).sortable({
                 items: "tr",
                 cursor: 'move',
@@ -299,10 +225,10 @@ aside i{
                   position: index+1
                 });
               });
-    // the Ajax Post update 
+    // the Ajax Post update
               $.ajax({
-                type: "POST", 
-                dataType: "json", 
+                type: "POST",
+                dataType: "json",
                 url: "{{ route('custom-sortable') }}",
                     data: {
                   order: order,

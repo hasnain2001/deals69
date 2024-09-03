@@ -9,6 +9,9 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function () {
@@ -23,15 +26,18 @@ Route::get('/privacy', function () {
     return view('privacy');
 })->name('privacy');
 
-
-Route::get('/term-and-condition', function () {
-    return view('term-and-condition');
+Route::get('/term_and_condition', function () {
+    return view('term_and_condition');
 })->name('term_and_condition');
+
+
 
 
 // Route for the contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
 // Route for search
 Route::get('/search', [SearchController::class, 'searchResults'])->name('searchResults');
 
@@ -44,32 +50,45 @@ Route::get('/search', [SearchController::class, 'searchResults'])->name('searchR
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/stores', 'stores')->name('stores');
-    Route::get('/store/{name}', 'StoreDetails')->name('store_details');
-    Route::get('/coupons', 'coupons')->name('coupons-store');
+    Route::get('/stores/{slug}', 'StoreDetails')->name('store_details');
+    Route::get('/coupons', 'coupon')->name('coupons');
     Route::get('/categories', 'categories')->name('categories');
-    Route::get('/category/{title}', 'RelatedCategoryStores')->name('related_category');
-    Route::get('/blog', 'blog')->name('blog');
-    Route::get('/blog-details/{title}',  'blog_deatil')->name('blog-details');
-
+    Route::get('/related_categories/{title}', 'RelatedCategoryStores')->name('related_category');
+Route::get('/blog',  'blog_home')->name('blog');
+Route::get('/blog/{slug}', 'blog_show')->name('blog-details');
 });
 
+// Coupons Routes Begin
+Route::get('coupons', [CouponsController::class, 'index'])->name('coupons.index');
+Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
+Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
+
+Route::get('/coupons', [CouponsController::class, 'index'])->name('coupons');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-Route::prefix('admin')->group(function () {
-    Route::get('/Blog', [DemoController::class, 'blog'])->name('admin.blog');
-    Route::get('/Blog/create', [DemoController::class, 'create'])->name('admin.blog.create');
-    Route::post('/Blog/store', [DemoController::class, 'store'])->name('admin.blog.store');
-    Route::get('/Blog/{id}/edit', [DemoController::class, 'edit'])->name('admin.blog.edit');
-    Route::post('/admin/Blog/update/{id}', [DemoController::class, 'update'])->name('admin.Blog.update');
-    Route::delete('/admin/Blog/{id}', [DemoController::class, 'destroy'])->name('admin.blog.delete');
+    Route::controller(ProfileController::class)->prefix('admin')->group(function (){
+    Route::get('/profile', 'edit')->name('profile.edit');
+    Route::patch('/profile', 'update')->name('profile.update');
+    Route::delete('/profile', 'destroy')->name('profile.destroy');
+
+});
+
+
+    Route::controller(DemoController::class)->prefix('admin')->group(function () {
+    Route::get('/Blog',  'blog')->name('admin.blog');
+    Route::get('/Blog/create',  'create')->name('admin.blog.create');
+    Route::post('/Blog/store', 'store')->name('admin.blog.store');
+    Route::get('/Blog/{id}/edit', 'edit')->name('admin.blog.edit');
+    Route::post('/Blog/update/{id}',  'update')->name('admin.Blog.update');
+    Route::delete('/Blog/{id}',  'destroy')->name('admin.blog.delete');
+    Route::post('/blog/deleteSelected',  'deleteSelected')->name('admin.blog.deleteSelected');
+    Route::delete('/blog/bulk-delete',  'deleteSelected')->name('admin.blog.bulkDelete');
+
 });
 
 
@@ -81,7 +100,9 @@ Route::controller(StoresController::class)->prefix('admin')->group(function () {
     Route::get('/store/edit/{id}', 'edit_store')->name('admin.store.edit');
     Route::post('/store/update/{id}', 'update_store')->name('admin.store.update');
     Route::get('/store/delete/{id}', 'delete_store')->name('admin.store.delete');
+     Route::post('/store/deleteSelected', 'deleteSelected')->name('admin.store.deleteSelected');
 });
+
 
 // Categories Routes Begin
 Route::controller(CategoriesController::class)->prefix('admin')->group(function () {
@@ -91,6 +112,7 @@ Route::controller(CategoriesController::class)->prefix('admin')->group(function 
     Route::get('/category/edit/{id}', 'edit_category')->name('admin.category.edit');
     Route::post('/category/update/{id}', 'update_category')->name('admin.category.update');
     Route::get('/category/delete/{id}', 'delete_category')->name('admin.category.delete');
+ Route::post('/category/deleteSelected', 'deleteSelected')->name('admin.category.deleteSelected');
 });
 
 // Networks Routes Begin
@@ -103,10 +125,7 @@ Route::controller(NetworksController::class)->prefix('admin')->group(function ()
     Route::get('/network/delete/{id}', 'delete_network')->name('admin.network.delete');
 });
 
-// Coupons Routes Begin
-Route::get('coupons', [CouponsController::class, 'index'])->name('coupons.index');
-Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
-Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
+
 
 
 Route::controller(CouponsController::class)->prefix('admin')->group(function () {
@@ -117,6 +136,7 @@ Route::controller(CouponsController::class)->prefix('admin')->group(function () 
     Route::post('/coupon/update/{id}', 'update_coupon')->name('admin.coupon.update');
     Route::get('/coupon/delete/{id}', 'delete_coupon')->name('admin.coupon.delete');
     Route::post('/custom-sortable', 'update')->name('custom-sortable');
+    Route::post('/coupon/deleteSelected', 'deleteSelected')->name('admin.coupon.deleteSelected');
 
 });
 });

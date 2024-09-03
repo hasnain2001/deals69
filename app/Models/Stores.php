@@ -12,6 +12,7 @@ class Stores extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'url',
         'destination_url',
@@ -29,11 +30,11 @@ class Stores extends Model
     {
         return $this->hasMany(Categories::class, 'id');
     }
- 
+
         public function coupon()
         {
             return $this->hasMany(Coupons::class);
         }
 
-    
+
 }

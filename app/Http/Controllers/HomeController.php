@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     public function blog()
     {
-        $blogs = Blog::all(); // Fetch blog data
+        $blogs = Blog::paginate(5);
      $chunks = Stores::inRandomOrder()->limit(25)->get();
         return view('blog', compact('blogs', 'chunks')); // Pass both data to the view
     }
@@ -22,11 +22,11 @@ class HomeController extends Controller
 public function blog_deatil($title) {
     // Decode the URL-encoded title
     $decodedTitle = str_replace('-', ' ', $title);
-
+    $chunks = Stores::inRandomOrder()->limit(25)->get();
     // Retrieve the blog post from the database based on the decoded title
     $blog = Blog::where('title', $decodedTitle)->firstOrFail();
 
-    return view('blog-details', compact('blog'));
+    return view('blog-details', compact('blog','chunks'));
 }
 
     public function index() {
@@ -92,7 +92,7 @@ public function topStores(Request $request)
     public function StoreDetails($name, Request $request) {
         $slug = Str::slug($name);
         $title = ucwords(str_replace('-', ' ', $slug));
-        $store = Stores::where('name', $title)->first();
+        $store = Stores::where('slug', $title)->first();
 
         if (!$store) {
             abort(404);
