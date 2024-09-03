@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Coupons;
 use App\Models\Stores;
-use App\Models\Categories;
-use App\Models\Blog;
 
 class CouponsController extends Controller
 {

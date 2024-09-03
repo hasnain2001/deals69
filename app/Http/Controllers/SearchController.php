@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class SearchController extends Controller
 {
-    
+
 public function search(Request $request) {
     $query = $request->input('query');
 
@@ -23,7 +23,7 @@ public function search(Request $request) {
 
     if ($store) {
         // If a single store is found, redirect to its details page
-        return redirect()->route('store_details', ['name' => Str::slug($store->name)]);
+        return redirect()->route('store_details', ['slug' => Str::slug($store->slug)]);
     }
 
     return response()->json(['stores' => $stores]);
@@ -41,12 +41,11 @@ public function searchResults(Request $request)
 
     if ($store) {
         // If a single store is found, redirect to its details page
-        return redirect()->route('store_details', ['name' => Str::slug($store->name)]);
+        return redirect()->route('store_details', ['slug' => Str::slug($store->slug)]);
     }
 
     return view('search_results', ['stores' => $stores]);
 }
-
 
 
 

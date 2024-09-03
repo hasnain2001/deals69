@@ -3,7 +3,7 @@
 
 <head>
     <title>@yield('title') |Deals69</title>
- <link rel="icon" href="{{ asset('front/assets/images/icons.png') }}" type="image/x-icon">
+ <link rel="icon" href="{{ asset('images/icon.png') }}" type="image/x-icon">
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -12,8 +12,8 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
-    
-  
+
+
 <meta name='impact-site-verification' value='de4ec733-7974-4b7d-a7aa-611819cb6e0f'>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -22,9 +22,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NJNM88GL');</script>
 <!-- End Google Tag Manager -->
-    
+
     <style>
-    
+
 nav{
 
   background-color:rgb(93, 25, 130);
@@ -64,7 +64,7 @@ background-color:rgb(87, 18, 124);
 
 <x-component-name/>
 
-<div class="container"> 
+<div class="container">
     <!-- Display Stores -->
     <h3>Search Results</h3>
     <div class="main_content">
@@ -77,13 +77,14 @@ background-color:rgb(87, 18, 124);
                 @elseif(isset($stores))
                     @foreach ($stores as $store)
                         <div class="col-12 col-lg-3">
-                            @if ($store->name)
-                                <a href="{{ route('store_details', ['name' => Str::slug($store->name)]) }}" class="text-decoration-none">
-                            @else
-                                <a href="javascript:;" class="text-decoration-none">
-                            @endif
+                            @php
+                            $storeUrl = $store->slug
+                                ? route('store_details', ['slug' => Str::slug($store->slug)])
+                                : '#';
+                        @endphp
                                     <div class="card shadow">
                                         <div class="card-body">
+
                                             @if ($store->store_image)
                                                 <img src="{{ asset('uploads/store/' . $store->store_image) }}" width="100%" alt="{{ $store->name }}">
                                             @else
@@ -102,10 +103,10 @@ background-color:rgb(87, 18, 124);
     </div>
 </div>
 
-        
-  
+
+
     <br><br><br><br><br><br>
-    
+
     <x-footer/>
 
     <!-- Bootstrap JavaScript Libraries -->
