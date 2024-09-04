@@ -208,9 +208,12 @@ header("X-Robots-Tag:index, follow");
                         <p class="text-success copy-confirmation d-none mt-3" id="copyConfirmation{{ $coupon->id }}">Code copied!</p>
                     </div>
                     @else
-                    <a href="{{ $coupon->destination_url }}" onclick="countClicks('{{ $coupon->id }}')" class="get btn btn-info btn-hover" target="_blank">Get Deal</a>
+                    <a href="{{ $coupon->destination_url }}" onclick="updateClickCount('{{ $coupon->id }}')" class="get btn btn-info btn-hover" target="_blank">Get Deal</a>
                     @endif
-
+                    <form method="post" action="{{ route('update.clicks') }}" id="clickForm">
+                        @csrf
+                        <input type="hidden" name="coupon_id" id="coupon_id">
+                    </form>
                 </div>
                        <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">Used By: {{ $coupon->clicks }}</p>
             </div>
@@ -221,11 +224,8 @@ header("X-Robots-Tag:index, follow");
 
         </div>
     </div>
-    <form method="post" action="{{ route('update.clicks') }}" id="clickForm">
-        @csrf
-        <input type="hidden" name="coupon_id" id="coupon_id">
-    </form>
-    <br><br>
+
+
 </div>
 
 
@@ -241,9 +241,6 @@ function toggleCouponCode(couponId) {
     // Set the coupon ID in localStorage to remember the state
     localStorage.setItem('copiedCouponId', couponId);
 
-    document.getElementById('coupon_id').value = couponId;
-    document.getElementById('clickForm').submit();
-
     const codeElement = document.getElementById(`codeIndex${couponId}`);
     const copyButton = document.getElementById(`copyBtn${couponId}`);
 
@@ -254,6 +251,9 @@ function toggleCouponCode(couponId) {
         codeElement.style.display = 'none';
         copyButton.classList.add('d-none');
     }
+
+    // Update the click count via AJAX
+    updateClickCount(couponId);
 }
 
 // Check localStorage on page load to restore the state
@@ -263,14 +263,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const codeElement = document.getElementById(`codeIndex${copiedCouponId}`);
         const copyButton = document.getElementById(`copyBtn${copiedCouponId}`);
 
-        if (codeElement.style.display === 'none') {
-            codeElement.style.display = 'inline';
-            copyButton.classList.remove('d-none');
-        } else {
-            codeElement.style.display = 'none';
-            copyButton.classList.add('d-none');
-        }
+        codeElement.style.display = 'inline';
+        copyButton.classList.remove('d-none');
     }
+});
+
+// Clear localStorage on refresh
+window.addEventListener('beforeunload', function () {
+    localStorage.removeItem('copiedCouponId');
 });
 
 // Function to copy coupon code to clipboard
@@ -292,7 +292,23 @@ function copyCouponCode(couponId) {
         });
 }
 
-// Function to count clicks
+// Function to update click count via AJAX
+function updateClickCount(couponId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '{{ route("update.clicks") }}', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log('Click count updated successfully.');
+        }
+    };
+
+    xhr.send('coupon_id=' + couponId);
+}
+
+// Function to count clicks (fallback if not using AJAX)
 function countClicks(couponId) {
     document.getElementById('coupon_id').value = couponId;
     document.getElementById('clickForm').submit();

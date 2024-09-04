@@ -84,7 +84,7 @@ background-color:rgb(87, 18, 124);
                         @endphp
                                     <div class="card shadow">
                                         <div class="card-body">
-
+                                            <a href="{{ $storeUrl }}" class="text-decoration-none store-card">
                                             @if ($store->store_image)
                                                 <img src="{{ asset('uploads/store/' . $store->store_image) }}" width="100%" alt="{{ $store->name }}">
                                             @else

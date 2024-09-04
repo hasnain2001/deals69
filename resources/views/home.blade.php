@@ -6,86 +6,36 @@
 
 <style>
 /* Coupon Card */
-.coupon-card {
-    height: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.coupon-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Store Logo */
-.store-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.store-image {
-    max-width: 100px;
-    height: auto;
-    border-radius: 50%;
-    margin-bottom: 15px;
-}
-
-/* Text Styling */
-.coupon-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.coupon-description {
-    font-size: 1rem;
-    color: #666;
-    flex-grow: 1; /* To make sure it grows to fill the space */
-}
-
-.coupon-discount {
-    font-size: 0.9rem;
-    font-style: italic;
-    color: #999;
-    margin-bottom: 15px;
-}
-
-/* Buttons */
-.coupon-buttons .btn {
-    margin: 0 5px;
-    border-radius: 10px;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.get-deal-button {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.get-deal-button:hover {
-    background-color: #0056b3;
-    color: #fff;
-}
-
-.visit-store-button {
-    background-color: #fff;
-    color: #007bff;
-    border: 1px solid #007bff;
-}
-
-.visit-store-button:hover {
-    background-color: #007bff;
-    color: #fff;
-}
-
+.coupon-card{height:100%;box-shadow:0 4px 8px rgba(0,0,0,.1);border-radius:8px;transition:transform .3s;display:flex;flex-direction:column;justify-content:space-between}.coupon-card:hover{transform:translateY(-5px)}.store-logo{display:flex;justify-content:center;align-items:center}.store-image{max-width:100px;height:auto;border-radius:50%;margin-bottom:15px}.coupon-title{font-size:1.2rem;font-weight:700;color:#333;margin-bottom:10px}.coupon-description{font-size:1rem;color:#666;flex-grow:1}.coupon-discount{font-size:.9rem;font-style:italic;color:#999;margin-bottom:15px}.coupon-buttons .btn{margin:0 5px;border-radius:10px;padding:10px 20px;transition:background-color .3s,color .3s}.get-deal-button,.visit-store-button:hover{background-color:#007bff;color:#fff}.get-deal-button:hover{background-color:#0056b3;color:#fff}.visit-store-button{background-color:#fff;color:#007bff;border:1px solid #007bff}
 
 </style>
+
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <ol class="carousel-indicators">
+      <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
+      <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+      <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100 rounded" src="{{ asset('images/caraosel-1.png') }}" alt="First slide" loading="lazy">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100 rounded" src="{{ asset('images/caraosel.png') }}" alt="Second slide" loading="lazy">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100 rounded" src="{{ asset('images/caraosel-2.png') }}" alt="Third slide" loading="lazy">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
 
 

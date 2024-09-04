@@ -10,8 +10,7 @@ header("X-Robots-Tag:index, follow");?>
    <!-- Your custom meta tags go here -->
    <title>{!! $blog->meta_title !!}</title>
     <link rel="canonical" href="https://deals69.com/blog/{{ Str::slug($blog->title) }}">
-        <meta name="description" content="{!! $blog->meta_description !!}">
-
+    <meta name="description" content="{!! $blog->meta_description !!}">
  <meta name="keywords" content="{!! $blog->meta_keyword !!}">
    <meta name="author" content="Najeeb-ullah khan">
  <meta name="robots" content="index, follow">
@@ -20,9 +19,9 @@ header("X-Robots-Tag:index, follow");?>
     <!-- You can display a default canonical URL or handle it in another appropriate way -->
     <link rel="canonical" href="https://honeycombdeals.com">
 @endif
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <link rel="icon" href="{{ asset('images/dlogo-removebg-preview.png') }}" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
   </head>
   <body>
 <x-component-name/>
@@ -50,7 +49,12 @@ header("X-Robots-Tag:index, follow");?>
         <div class="row gx-2 gy-2">
           @foreach ($chunks as $store)
             <div class="col-md-6 col-sm-4 col-6">
-              <a href="{{ route('store_details', ['name' => Str::slug($store->name)]) }}" class="text-dark text-decoration-none d-flex flex-column p-2">
+                @php
+                $storeUrl = $store->slug
+                    ? route('store_details', ['slug' => Str::slug($store->slug)])
+                    : '#';
+            @endphp
+              <a href="{{ $storeUrl }}" class="text-dark text-decoration-none d-flex flex-column p-2">
                 <!-- Store Image -->
                 <img src="{{ asset('uploads/store/' . $store->store_image) }}" alt="{{ $store->name }}" class="mb-2 rounded-circle shadow" style="width: 100px; height: 100px; object-fit: cover;">
                 <!-- Store Name -->

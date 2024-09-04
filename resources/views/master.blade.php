@@ -29,24 +29,7 @@ header("X-Robots-Tag:index, follow");
      body{
          background:white;
      }
-         #scrollUpBtn {
-    display: none; /* Hidden by default */
-    position: fixed; /* Fixed/sticky position */
-    bottom: 20px; /* Place the button at the bottom of the page */
-    right: 30px; /* Place the button 30px from the right */
-    z-index: 99; /* Make sure it does not overlap */
-    border: none; /* Remove borders */
-    outline: none; /* Remove outline */
-    background-color: #7158fe; /* Set a background color */
-    color: white; /* Set a text color */
-    cursor: pointer; /* Add a mouse pointer on hover */
-    padding: 15px; /* Add some padding */
-    border-radius: 10px; /* Add rounded corners */
-}
 
-#scrollUpBtn:hover {
-    background-color: #555; /* Add a dark-grey background on hover */
-}
  </style>
 
  <!-- veryfication codes  -->
@@ -64,37 +47,7 @@ header("X-Robots-Tag:index, follow");
   </head>
   <body>
 
-<button id="scrollUpBtn" title="Go to top">↑</button>
 <x-component-name/>
-
-<div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-  <ol class="carousel-indicators">
-    <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
-    <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
-    <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
-
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100 rounded" src="images/caraosel-1.png" alt="First slide" loading="lazy">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100 rounded" src="images/caraosel.png" alt="Second slide" loading="lazy">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100 rounded" src="images/caraosel-2.png" alt="Third slide"  loading="lazy">
-    </div>
-
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
 
 
 
@@ -107,7 +60,6 @@ header("X-Robots-Tag:index, follow");
 <br><br><br><br>
 <x-footer/>
 <script src="{{ asset('js/home.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
   </body>
 </html>

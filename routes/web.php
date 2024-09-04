@@ -8,6 +8,7 @@ use App\Http\Controllers\StoresController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
@@ -21,6 +22,7 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
 
 Route::get('/privacy', function () {
     return view('privacy');
@@ -46,7 +48,7 @@ Route::get('/search', [SearchController::class, 'searchResults'])->name('searchR
 
 
 
-
+//  Routes Begin
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/stores', 'stores')->name('stores');
@@ -54,16 +56,18 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/coupons', 'coupon')->name('coupons');
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/related_categories/{title}', 'RelatedCategoryStores')->name('related_category');
-Route::get('/blog',  'blog_home')->name('blog');
-Route::get('/blog/{slug}', 'blog_show')->name('blog-details');
+Route::get('/blog',  'blog')->name('blog');
+Route::get('/blog/{slug}', 'blog_deatil')->name('blog-details');
+Route::fallback('notfound')->name('notfound');
+
+Route::get('/notfound', [ErrorController::class, 'showNotFound'])->name('not-found');
+
+Route::get('/coupons',  'coupons')->name('coupons.index');
+Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
+
 });
 
-// Coupons Routes Begin
-Route::get('coupons', [CouponsController::class, 'index'])->name('coupons.index');
-Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
-Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
 
-Route::get('/coupons', [CouponsController::class, 'index'])->name('coupons');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

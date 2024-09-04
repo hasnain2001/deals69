@@ -17,59 +17,20 @@ header("X-Robots-Tag:index, follow");
  <meta name="robots" content="index, follow">
          <link rel="canonical" href="https://deals69.com/coupons">
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
      <link rel="icon" href="{{ asset('images/dlogo-removebg-preview.png') }}" type="image/x-icon">
 <style>
-.get-deal-button,
-.get-deal-button:hover {
-    background-color: #17a2b8; /* Default Bootstrap info color */
-    border-color: #17a2b8;
-    color: #fff; /* Text color */
-    padding: 10px 20px; /* Add padding */
-    border-radius: 5px; /* Add border radius */
-    text-decoration: none; /* Remove default text decoration */
-    transition: background-color 0.3s, border-color 0.3s; /* Add transition for smoother hover effect */
-}
-
-.get-deal-button:hover {
-    background-color: #138496; /* Darker shade of Bootstrap info color */
-    border-color: #117a8b; /* Darker shade of Bootstrap info color */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
-}
-    .coupon-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .coupon-card .card-body {
-      flex: 1;
-    }
-    .coupon-card img {
-      height: 100px;
-      object-fit: cover;
-    }
-    .coupon-card .btn-group {
-      margin-top: auto;
-    }
-    .modal-body {
-      text-align: center;
-    }
+.get-deal-button,.get-deal-button:hover{background-color:#17a2b8;border-color:#17a2b8;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;transition:background-color .3s,border-color .3s}.get-deal-button:hover{background-color:#138496;border-color:#117a8b;box-shadow:0 0 10px rgba(0,0,0,.2)}.coupon-card{display:flex;flex-direction:column;height:100%}.coupon-card .card-body{flex:1}.coupon-card img{height:100px;object-fit:cover}.coupon-card .btn-group{margin-top:auto}.modal-body{text-align:center}.card{color:gray;padding:10px;margin-top:10px}
   </style>
 </head>
 <body>
 <x-component-name/>
 <br>
-<div class="container bg-light">
-    <div class="row mt-3 justify-content-center"> <!-- Center the pagination links -->
-        <div class="col-12 bg-light text-center"> <!-- Add text-center class here -->
-            {{ $coupons->links('pagination::bootstrap-4') }}
-        </div>
-    </div>
-</div>
-<div class="container"><p class="h5 m-0">Total coupons: <span class="fw-bold">{{ $coupons->total() }}</span></p></div></div>
 
 
 <div class="container">
+
+{{$coupons->links('pagination::bootstrap-5')  }}
     <div class="row">
       @foreach ($coupons as $coupon)
         <div class="col-md-4 mb-3">
@@ -87,10 +48,25 @@ header("X-Robots-Tag:index, follow");
               </div>
               <div class="col-md-8">
                 <div class="card-body">
+
                   <span class="card-title coupon-title text-info">{{ $coupon->store }}</span>
-                  <br>
-                  <span class="card-title coupon-title text-dark">{{ $coupon->name }}</span>
+                  <div class="card">
+                    <span class="text ">{{ $coupon->name }}</span>
+                  </div>
+
+
+
                   <p class="coupon-description">{{ $coupon->description }}</p>
+                  @php
+                  // Get the current time in Karachi timezone
+                  $now = \Carbon\Carbon::now('Asia/Karachi');
+                  // Convert coupon's created_at to Karachi timezone
+                  $created_at = \Carbon\Carbon::parse($coupon->ending_date)->timezone('Asia/Karachi');
+              @endphp
+
+<p style="color: {{ $created_at->isPast() ? 'red' : 'inherit' }};">
+    {{ $created_at->format('d M, Y') }}
+</p>
                   <div class="d-flex justify-content-between align-items-center">
 
                     <div class="btn-group" role="group" aria-label="Coupon Buttons">
@@ -161,7 +137,6 @@ header("X-Robots-Tag:index, follow");
             modal.show();
         }
     </script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -11,60 +11,73 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-
-    public function blog()
+    public function notfound()
     {
-        $blogs = Blog::paginate(5);
-     $chunks = Stores::inRandomOrder()->limit(25)->get();
-        return view('blog', compact('blogs', 'chunks')); // Pass both data to the view
+        $Coupons = Coupons::whereIn('id', function($query) {
+            $query->select(DB::raw('MAX(id)'))
+            ->from('coupons')
+            ->groupBy('store');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(21);
+    return view('errors.404', compact('Coupons')); // Pass both data to the view
     }
 
-public function blog_deatil($title) {
-    // Decode the URL-encoded title
-    $decodedTitle = str_replace('-', ' ', $title);
-    $chunks = Stores::inRandomOrder()->limit(25)->get();
-    // Retrieve the blog post from the database based on the decoded title
-    $blog = Blog::where('title', $decodedTitle)->firstOrFail();
+        public function blog()
+        {
+        $blogs = Blog::paginate(4);
+        $chunks = Stores::latest()->paginate(30);
+        return view('blog', compact('blogs', 'chunks')); // Pass both data to the view
+        }
 
-    return view('blog-details', compact('blog','chunks'));
-}
+        public function blog_deatil($title) {
+        // Decode the URL-encoded title
+        $decodedTitle = str_replace('-', ' ', $title);
+        $chunks = Stores::latest()->paginate(20);
+        // Retrieve the blog post from the database based on the decoded title
+        $blog = Blog::where('title', $decodedTitle)->firstOrFail();
 
-    public function index() {
+
+        if (!$blog) {
+            return redirect('404');
+            }
+
+
+        return view('blog-details', compact('blog','chunks'));
+        }
+
+        public function index() {
         $stores = Stores::latest()->paginate(15);
 
         $blogs = Blog::latest()->paginate(9);
         $home = Blog::paginate(9);
 
-          $Coupons = Coupons::whereIn('id', function($query) {
-            $query->select(DB::raw('MAX(id)'))
-                  ->from('coupons')
-                  ->groupBy('store');
+        $Coupons = Coupons::whereIn('id', function($query) {
+        $query->select(DB::raw('MAX(id)'))
+        ->from('coupons')
+        ->groupBy('store');
         })
         ->orderBy('created_at', 'desc')
         ->paginate(21);
         return view('home', compact('stores',  'blogs','Coupons','home'));
-    }
+        }
 
-    public function coupons(){
-        $coupons = Coupons::all();
-        return view('coupons',compact('coupons'));
-    }
-public function topStores(Request $request)
-{
-    $topstores = Stores::latest()->paginate(30); // Assuming your store model is named Store
+        public function coupons(){
+            $coupons = Coupons::orderBy('created_at', 'desc')->paginate(10);
+            return view('coupons', compact('coupons'));
+        }
 
-    return view('home', compact('topstores'));
-}
 
-       public function search(Request $request) {
+
+        public function search(Request $request) {
         $query = $request->input('query');
 
         // Check if there is a store with a matching name
         $store = Stores::where('name', $query)->first();
 
         if ($store) {
-            // If a store is found, redirect to the store details page
-            return redirect()->route('store.details', ['name' => $store->name]);
+        // If a store is found, redirect to the store details page
+        return redirect()->route('store.details', ['name' => $store->name]);
         }
 
 
@@ -72,30 +85,30 @@ public function topStores(Request $request)
         $stores = Stores::where('name', 'like', "$query%")->latest()->get();
 
         return view('search_results', compact('stores'));
-    }
+        }
 
 
-    public function stores(Request $request)
-{
-    $letter = $request->input('letter');
-    $storesQuery = Stores::query();
+        public function stores(Request $request)
+        {
+        $letter = $request->input('letter');
+        $storesQuery = Stores::query();
 
-    if ($letter) {
+        if ($letter) {
         $storesQuery->where('name', 'like', $letter.'%');
-    }
+        }
 
-    $stores = $storesQuery->orderBy('name')->paginate(1000);
+        $stores = $storesQuery->orderBy('name')->paginate(1000);
 
-    return view('stores', compact('stores'));
-}
+        return view('stores', compact('stores'));
+        }
 
-    public function StoreDetails($name, Request $request) {
+        public function StoreDetails($name, Request $request) {
         $slug = Str::slug($name);
         $title = ucwords(str_replace('-', ' ', $slug));
         $store = Stores::where('slug', $title)->first();
 
         if (!$store) {
-            abort(404);
+        return redirect('404');
         }
 
         // Sort coupons based on query parameter
@@ -104,9 +117,9 @@ public function topStores(Request $request)
         $couponsQuery = Coupons::where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC');
 
         if ($sort === 'codes') {
-            $couponsQuery->whereNotNull('code');
+        $couponsQuery->whereNotNull('code');
         } elseif ($sort === 'deals') {
-            $couponsQuery->whereNull('code');
+        $couponsQuery->whereNull('code');
         }
 
         $coupons = $couponsQuery->get();
@@ -118,37 +131,37 @@ public function topStores(Request $request)
 
         // Fetch related stores
         $relatedStores = Stores::where('category', $store->category)
-                               ->where('id', '!=', $store->id)
-                               ->get();
+                ->where('id', '!=', $store->id)
+                ->get();
 
         return view('store_details', compact('store', 'coupons', 'relatedStores', 'blogs', 'codeCount', 'dealCount'));
-    }
+        }
 
 
-     public function categories() {
+        public function categories() {
         $categories = Categories::all();
         return view('categories', compact('categories'));
-    }
+        }
 
 
-public function RelatedCategoryStores($name) {
-    $slug = Str::slug($name);
-    $title = ucwords(str_replace('-', ' ', $slug));
+        public function RelatedCategoryStores($name) {
+        $slug = Str::slug($name);
+        $title = ucwords(str_replace('-', ' ', $slug));
 
-    // Fetch the store
-    $category = Categories::where('title', $title)->first();
-
-
-    if (!$category) {
-return redirect('404');
-    }
-
-    // Fetch related coupons and stores
-    $stores = Stores::where('category', $title)->get();
+        // Fetch the store
+        $category = Categories::where('title', $title)->first();
 
 
-    return view('related_categories', compact('category', 'stores' ));
-}
+        if (!$category) {
+        return redirect('404');
+        }
+
+        // Fetch related coupons and stores
+        $stores = Stores::where('category', $title)->get();
+
+
+        return view('related_categories', compact('category', 'stores' ));
+        }
 
 
 }
