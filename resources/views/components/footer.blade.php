@@ -7,51 +7,7 @@
   <title>Footer</title>
   <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2/css/bootstrap.min.css') }}">
   <style>
-    /* Custom styles for the Info section */
-    .info-section {
-
-      padding: 20px;
-      border-radius: 8px;
-      text-align: left;
-      align-items: left;
-    }
-
-    .info-section h4 {
-      color: #f8f9fa; /* Light color for the heading */
-      margin-bottom: 20px;
-    }
-
-    .info-section ul {
-      padding: 0;
-      list-style: none;
-    }
-
-    .info-section li {
-      margin-bottom: 10px;
-    }
-
-    .info-section a {
-      color: black; /* Gold color for links */
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .info-section a:hover {
-      color: #fff; /* White color on hover */
-    }
-
-    .social-icons a {
-      color: black; /* Matching gold color for icons */
-    }
-
-    .social-icons a:hover {
-      color: #fff; /* White color on hover */
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: auto;
-    }
+ .info-section{padding:20px;border-radius:8px;text-align:left;align-items:left}.info-section h4{color:#f8f9fa;margin-bottom:20px}.info-section ul{padding:0;list-style:none}.info-section li{margin-bottom:10px}.info-section a{color:#000;text-decoration:none;font-weight:700}.info-section a:hover,.social-icons a:hover{color:#fff}.social-icons a{color:#000}.footer-container{max-width:1200px;margin:auto}
   </style>
 </head>
 <body>

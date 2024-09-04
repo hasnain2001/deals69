@@ -40,18 +40,7 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
 
         <style>
-            .sidebar-dark-primary {
-            background-color:rgb(13,202,240)!important;
-
-        }
-      aside p {
-    color: black;
-    font-weight: bold;
-    font-size: 1.1rem; /* Adjust the font size as needed */
-}
-aside i{
-    color:black;
-}
+ aside i,aside p{color:#000}.sidebar-dark-primary{background-color:#0dcaf0!important}aside p{font-weight:700;font-size:1.1rem}
     </style>
 
 </head>

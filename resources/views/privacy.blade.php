@@ -12,49 +12,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
   <style>
-  
-  body{
-     font-family: Nunito,Normal;
-}
-h1{
-    color:black ;
-}
 
-nav{
-
-  background-color:rgb(93, 25, 130);
-}
-section{
-background-color:rgb(87, 18, 124);
-}
-
-
-}
-  .container {
-      display: flex;
-      justify-content: center; /* Center contents horizontally */
-      align-items: center;
-    }
-    .form-container {
-      max-width: 600px; /* Adjust max-width as needed */
-      width: 100%;
-    }
-    .form-container form {
-        right:200px;
-      display: flex;
-      justify-content: center; /* Center contents horizontally */
-      align-items: center;
-    }
-    .social-icons a {
-      color:white; /* Change icon color as needed */
-      margin-left: 10px; /* Adjust margin between icons as needed */
-      font-size: 25px; /* Adjust icon size as needed */
-    }
-    .image-container img {
-    background-color: transparent;
-    mix-blend-mode:multiply;
-}
-
+  body{font-family:Nunito,Normal}h1{color:#000}nav{background-color:#5d1982}section{background-color:#57127c}.form-container{max-width:600px;width:100%}.form-container form{right:200px;display:flex;justify-content:center;align-items:center}.social-icons a{color:#fff;margin-left:10px;font-size:25px}.image-container img{background-color:transparent;mix-blend-mode:multiply}
   </style>
 </head>
 <body>
@@ -64,11 +23,11 @@ background-color:rgb(87, 18, 124);
             <div class="image-container">
                 <img src="images/deals69.jpg" alt="Deals 69 Vision Image" class="d69 img-fluid shadow border-info" />
             </div>
-            
+
 
           <h1 class="mt-3 mb-4">Protecting Your Privacy at Deals69</h1>
         </div>
-      
+
         <div class="row">
           <div class="col-md-8 mx-auto mb-4">
             <p>
@@ -77,7 +36,7 @@ background-color:rgb(87, 18, 124);
             <p class="text-center fw-bold">Last Updated: October 2023</p>
           </div>
         </div>
-      
+
         <div class="row">
           <div class="col-md-8 mx-auto">
             <h2>Key Points for Your Convenience</h2>
@@ -112,7 +71,7 @@ background-color:rgb(87, 18, 124);
                   </span>
                   <p class="ms-auto mb-0">Specific cases, like business transfers (more details in full policy)</p>
                 </li>
-             
+
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <span class="me-3">
                         <i class="fas fa-shield-alt text-primary fs-4"></i> Data Security
@@ -173,19 +132,19 @@ background-color:rgb(87, 18, 124);
                       </span>
                       <p class="ms-auto mb-0">Review, update, or delete your data using our data subject access request form.</p>
                     </li>
-              
-                  
+
+
                 </ul>
-              
+
           </div>
         </div>
-      
-       
-      
-       
+
+
+
+
       </div>
-      
-    
+
+
     <x-footer/>
   <!-- Bootstrap JS and jQuery -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

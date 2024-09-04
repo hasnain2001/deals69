@@ -4,15 +4,7 @@
 @endsection
 @section('main-content')
 <style>
-    /* Apply bold font to the entire select box */
-.select-bold {
-    font-weight: bold;
-}
-
-/* Apply bold font to options in modern browsers */
-select option {
-    font-weight: bold;
-}
+.select-bold,select option{font-weight:700}
 
 </style>
 <div class="content-wrapper">

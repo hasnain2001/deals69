@@ -21,104 +21,7 @@ header("X-Robots-Tag:index, follow");
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-
-    .container{
-         font-family: 'viga', sans-serif;
-    font-weight: 500;
-    color: #868686;
-    }
- .card-hover {
-    border: 2px solid #ddd;
-    transition: border-color 0.3s ease;
-    height: 100%; /* Adjust height to full height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.card-hover:hover {
-    border-color:#0dcaf0;
-}
-
-.btn-hover {
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-hover:hover {
-    background-color: #0056b3;
-    color: #fff;
-}
-
-.coupon-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px; /* Adjust height */
-    margin: auto;
-}
-
-.store-image {
-    max-width: 100px;
-    height: 100px;
-}
-
-.coupon-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Full height of the parent */
-}
-
-.coupon-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-.coupon-details {
-    flex-grow: 1;
-}
-
-.coupon-action {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.buttm{
-    width:10px;
-    height:5px;
-    padding:5px;
-}
-.copy-btn {
-    margin-top: 10px;
-}
-
-.copy-confirmation {
-    margin-top: 30px;
-    color: green;
-}
-
-.custom-font {
-    font-family: 'viga', sans-serif;
-    font-weight: bold ;
-    color:#878787;
-
-}
-.des-font {
-    font-family: 'Open Sans', sans-serif; /* Corrected font family name */
-    font-weight: 500; /* Corrected font-weight syntax */
-    color: #999999;
-}
-.used{
-    font-family: 'Open Sans', sans-serif;
-    font-weight:800;
-    font-size:12px;
-
-}
-
-
-
-
+.card-hover,.coupon-card{flex-direction:column;display:flex}.container,.custom-font{font-family:viga,sans-serif}.container{font-weight:500;color:#868686}.card-hover{border:2px solid #ddd;transition:border-color .3s;height:100%;justify-content:space-between}.card-hover:hover{border-color:#0dcaf0}.btn-hover{transition:background-color .3s,color .3s}.btn-hover:hover{background-color:#0056b3;color:#fff}.coupon-image-container{display:flex;justify-content:center;align-items:center;height:100px;margin:auto}.store-image{max-width:100px;height:100px}.coupon-card{height:100%}.coupon-content{display:flex;flex-direction:column;justify-content:space-between;flex-grow:1}.coupon-details{flex-grow:1}.coupon-action{display:flex;justify-content:center;align-items:center}.buttm{width:10px;height:5px;padding:5px}.copy-btn{margin-top:10px}.copy-confirmation{margin-top:30px;color:green}.custom-font{font-weight:700;color:#878787}.des-font,.used{font-family:'Open Sans',sans-serif}.des-font{font-weight:500;color:#999}.used{font-weight:800;font-size:12px}
     </style>
 </head>
 <body>
@@ -198,6 +101,16 @@ header("X-Robots-Tag:index, follow");
                     <br>
                     <p class="coupon-description des-font">{{ $coupon->description }}</p>
                      <hr style="border:2px black dotted;">
+                     @php
+                     // Get the current time in Karachi timezone
+                     $now = \Carbon\Carbon::now('Asia/Karachi');
+                     // Convert coupon's created_at to Karachi timezone
+                     $created_at = \Carbon\Carbon::parse($coupon->ending_date)->timezone('Asia/Karachi');
+                 @endphp
+
+<p class="text-right" style="color: {{ $created_at->isPast() ? 'red' : 'inherit' }};">
+    Ending Date:{{ $created_at->format('d M, Y') }}
+</p>
                 </div>
                 <div class="coupon-action text-center">
                     @if ($coupon->code)
@@ -216,7 +129,9 @@ header("X-Robots-Tag:index, follow");
                     </form>
                 </div>
                        <p class="used font-weight-bold mt-2" id="output_{{ $coupon->id }}">Used By: {{ $coupon->clicks }}</p>
+
             </div>
+
         </div>
     </div>
     @endforeach

@@ -23,40 +23,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NJNM88GL');</script>
 <!-- End Google Tag Manager -->
 
-    <style>
-
-nav{
-
-  background-color:rgb(93, 25, 130);
-}
-section{
-background-color:rgb(87, 18, 124);
-}
-
-
-}
-  .container {
-      display: flex;
-      justify-content: center; /* Center contents horizontally */
-      align-items: center;
-    }
-    .form-container {
-      max-width: 600px; /* Adjust max-width as needed */
-      width: 100%;
-    }
-    .form-container form {
-        right:200px;
-      display: flex;
-      justify-content: center; /* Center contents horizontally */
-      align-items: center;
-    }
-    .social-icons a {
-      color:white; /* Change icon color as needed */
-      margin-left: 10px; /* Adjust margin between icons as needed */
-      font-size: 25px; /* Adjust icon size as needed */
-    }
-
-</style>
+  
 </head>
 
 <body>

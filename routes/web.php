@@ -28,8 +28,8 @@ Route::get('/privacy', function () {
     return view('privacy');
 })->name('privacy');
 
-Route::get('/term_and_condition', function () {
-    return view('term_and_condition');
+Route::get('/term-and-condition', function () {
+    return view('term-and-condition');
 })->name('term_and_condition');
 
 

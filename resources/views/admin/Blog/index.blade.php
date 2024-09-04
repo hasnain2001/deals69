@@ -4,17 +4,7 @@
 @endsection
 @section('datatable-content')
 <style>
-    .alert-custom {
-        background-color: #d4edda;
-        border-color: #c3e6cb;
-        color: #155724;
-        font-weight: bold;
-        border-radius: 0.25rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    .alert-custom .close {
-        color: #155724;
-    }
+ .alert-custom,.alert-custom .close{color:#155724}.alert-custom{background-color:#d4edda;border-color:#c3e6cb;font-weight:700;border-radius:.25rem;box-shadow:0 1px 3px rgba(0,0,0,.1)}
 </style>
 
     <div class="wrapper bg-white">

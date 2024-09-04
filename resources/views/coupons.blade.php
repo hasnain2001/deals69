@@ -76,7 +76,9 @@ header("X-Robots-Tag:index, follow");
                         <a href="{{ $coupon->destination_url }}" class="btn btn-sm btn-primary get-deal-button" target="_blank">Get Deal</a>
                       @endif
                       @if ($store)
-                        <a href="{{ $store->url }}" target="_blank" class="btn btn-sm btn-outline-primary visit-store-button">Visit Store</a>
+                      <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="btn btn-outline-primary btn-sm visit-store-button ml-2">Visit Store</a>
+                      @else
+                      <a href="#" class="btn btn-sm btn-outline-primary visit-store-button ml-2">No Store found </a>
                       @endif
                     </div>
                   </div>

@@ -10,67 +10,7 @@
         <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('bootstrap-5.0.2/css/bootstrap.min.css') }}">
 <style>
-    body{
-        margin: 0;
-        padding: 0;
-    }
-    /* width */
-::-webkit-scrollbar {
-  width: 20px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #0dcaf0;
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background:#126c7e;
-}
-
-.loader {
-  width: 120px;
-  height: 20px;
-  background: linear-gradient(#000 0 0) 0/0% no-repeat #ddd;
-  animation: l1 2s infinite linear;
-  position: fixed; /* Position it in the center */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999; /* Ensure it appears above everything else */
-}
-
-@keyframes l1 {
-    100% { background-size: 100%; }
-}
-#myBtn {
-  display: none; /* Hidden by default */
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
-  outline: none; /* Remove outline */
-  background-color: #0dcaf0; /* Set a background color */
-  color: white; /* Text color */
-  cursor: pointer; /* Add a mouse pointer on hover */
-  padding: 15px; /* Some padding */
-  border-radius: 10px; /* Rounded corners */
-  font-size: 18px; /* Increase font size */
-}
-
-#myBtn:hover {
-  background-color: #555; /* Add a dark-grey background on hover */
-}
-
+#myBtn,.loader{position:fixed}body{margin:0;padding:0}::-webkit-scrollbar{width:20px}::-webkit-scrollbar-track{box-shadow:inset 0 0 5px grey;border-radius:10px}::-webkit-scrollbar-thumb{background:#0dcaf0;border-radius:10px}::-webkit-scrollbar-thumb:hover{background:#126c7e}.loader{width:120px;height:20px;background:linear-gradient(#000 0 0) 0/0 no-repeat #ddd;animation:2s linear infinite l1;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999}@keyframes l1{100%{background-size:100%}}#myBtn{display:none;bottom:20px;right:30px;z-index:99;border:none;outline:0;background-color:#0dcaf0;color:#fff;cursor:pointer;padding:15px;border-radius:10px;font-size:18px}#myBtn:hover{background-color:#555}
 </style>
 </head>
 <body>
@@ -125,8 +65,7 @@
        var loader = document.getElementById('loader');
        loader.style.display = 'none';
      });
-   </script>
-<script>
+
     let mybutton = document.getElementById("myBtn");
 
 // When the user scrolls down 20px from the top of the document, show the button

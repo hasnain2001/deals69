@@ -6,48 +6,7 @@
     <title>404 Not Found</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f2f2f2;
-            color: #333;
-            text-align: center;
-            padding: 50px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        h1 {
-            font-size: 100px;
-            margin: 0;
-            color: #e74c3c;
-        }
-        h2 {
-            font-size: 24px;
-            margin: 20px 0;
-            color: #555;
-        }
-        p {
-            font-size: 18px;
-            color: #666;
-        }
-
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #222425;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 20px;
-
-        }
-        .button:hover {
-            background-color: #030303;
-            text-decoration: none;
-        }
+body{font-family:Roboto,sans-serif;background-color:#f2f2f2;color:#333;text-align:center;padding:50px}.container{max-width:600px;margin:0 auto}h1{font-size:100px;margin:0;color:#e74c3c}h2{font-size:24px;margin:20px 0;color:#555}.button,p{font-size:18px}p{color:#666}.button{display:inline-block;padding:10px 20px;color:#fff;background-color:#222425;border-radius:5px;text-decoration:none;margin-top:20px}.button:hover{background-color:#030303;text-decoration:none}
     </style>
 </head>
 <body>

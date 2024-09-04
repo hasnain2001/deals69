@@ -16,25 +16,7 @@ header("X-Robots-Tag:index, follow");
     <link rel="canonical" href="https://deals69.com/categories">
 
     <style>
-        /* Style for the card container */
-        .card {
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        /* Style for the card image */
-        .card img {
-            border-radius: 50%; /* Makes the image round */
-            width: 150px; /* Set the width of the image */
-            height: 150px; /* Set the height of the image */
-            object-fit: cover; /* Maintain aspect ratio and cover the entire area */
-        }
-
-        /* Style for the card title */
-        .card-title {
-            text-align: center;
-            margin-top: 10px;
-        }
+   .card{border-radius:15px;overflow:hidden}.card img{border-radius:50%;width:150px;height:150px;object-fit:cover}.card-title{text-align:center;margin-top:10px}
 
     </style>
   </head>

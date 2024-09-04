@@ -7,16 +7,13 @@
   <meta name="description" content="Find amazing deals, discounts & tips to stretch your budget further. We're your ultimate shopping sidekick!">
 
   <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
- 
+
    <meta name="author" content="John Doe">
   <meta name="robots" content="index, follow">
   <link rel="icon" href="{{ asset('front/assets/images/icons.png') }}" type="image/x-icon">
      <link rel="icon" href="{{ asset('front/assets/images/logo-01.png') }}"  type="image/x-icon">
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+ 
 
 </head>
 <body>
@@ -132,7 +129,7 @@
           </div>
         </div>
       </section>
-      
+
     </div>
   </section>
 </main>
