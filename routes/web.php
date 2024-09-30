@@ -41,7 +41,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // Route for search
-Route::get('/search', [SearchController::class, 'searchResults'])->name('searchResults');
+Route::get('/search', [SearchController::class, 'search'])->name('searchResults');
 
 
 

@@ -23,7 +23,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NJNM88GL');</script>
 <!-- End Google Tag Manager -->
 
-  
+
 </head>
 
 <body>
@@ -53,7 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                         <div class="card-body">
                                             <a href="{{ $storeUrl }}" class="text-decoration-none store-card">
                                             @if ($store->store_image)
-                                                <img src="{{ asset('uploads/store/' . $store->store_image) }}" width="100%" alt="{{ $store->name }}">
+                                                <img src="{{ asset('uploads/stores/' . $store->store_image) }}" width="100%" alt="{{ $store->name }}">
                                             @else
                                                 <img src="{{ asset('front/assets/images/no-image-found.jpg') }}" width="100%" alt="No Image Found">
                                             @endif

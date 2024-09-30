@@ -11,23 +11,34 @@ use PhpParser\Node\Stmt\Return_;
 
 class SearchController extends Controller
 {
+    public function search(Request $request) {
+        // Validate and sanitize input
+        $query = trim($request->input('query'));
 
-        public function search(Request $request) {
-        $query = $request->input('query');
+        if (empty($query)) {
+            return redirect()->back()->with('error', 'Search query cannot be empty.');
+        }
 
-        // Fetch stores matching the query for autocomplete
-        $stores = Stores::where('name', 'like', "$query%")->pluck('name');
+        // Fetch stores matching the query for autocomplete (retrieving both name and slug)
+        $stores = Stores::where('name', 'like', "$query%")->get(['name', 'slug']);
 
         // Check if there is a single store matching the query exactly
         $store = Stores::where('name', $query)->first();
 
         if ($store) {
-        // If a single store is found, redirect to its details page
-        return redirect()->route('store_details', ['slug' => Str::slug($store->slug)]);
+            // If a single store is found, redirect to its details page
+            return redirect()->route('store_details', ['slug' => Str::slug($store->slug)]);
         }
 
-        return response()->json(['stores' => $stores]);
+        // Check if any stores were found for autocomplete or list
+        if ($stores->isEmpty()) {
+            return view('search_results', ['stores' => $stores, 'message' => 'No stores found.']);
         }
+
+        return view('search_results', ['stores' => $stores]);
+    }
+
+
 
         public function searchResults(Request $request)
         {

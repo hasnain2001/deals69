@@ -44,17 +44,17 @@
                                     <input type="text" class="form-control" name="name" id="name" value="{{ $stores->name }}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="name">Url/Slug <span class="text-danger">*</span></label>
+                                    <label for="name">Slug <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="slug" id="name" value="{{ $stores->slug }}" placeholder="define your url here " required>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" required>{{ $stores->description }}</textarea>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="url">URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="url" id="url" value="{{ $stores->url }}" required>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
                                     <input  type="url" class="form-control" name="destination_url" id="destination_url" value="{{ $stores->destination_url }} " required>

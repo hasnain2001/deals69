@@ -6,7 +6,7 @@
 
 <style>
 /* Coupon Card */
-.coupon-card{height:100%;box-shadow:0 4px 8px rgba(0,0,0,.1);border-radius:8px;transition:transform .3s;display:flex;flex-direction:column;justify-content:space-between}.coupon-card:hover{transform:translateY(-5px)}.store-logo{display:flex;justify-content:center;align-items:center}.store-image{max-width:100px;height:auto;border-radius:50%;margin-bottom:15px}.coupon-title{font-size:1.2rem;font-weight:700;color:#333;margin-bottom:10px}.coupon-description{font-size:1rem;color:#666;flex-grow:1}.coupon-discount{font-size:.9rem;font-style:italic;color:#999;margin-bottom:15px}.coupon-buttons .btn{margin:0 5px;border-radius:10px;padding:10px 20px;transition:background-color .3s,color .3s}.get-deal-button,.visit-store-button:hover{background-color:#007bff;color:#fff}.get-deal-button:hover{background-color:#0056b3;color:#fff}.visit-store-button{background-color:#fff;color:#007bff;border:1px solid #007bff}
+.coupon-card{height:100%;box-shadow:0 4px 8px rgba(0,0,0,.1);border-radius:8px;transition:transform .3s;display:flex;flex-direction:column;justify-content:space-between}.coupon-card:hover{transform:translateY(-5px)}.store-logo{display:flex;justify-content:center;align-items:center}.store-image{max-width:100px;height:auto;border-radius:10%;margin-bottom:15px}.coupon-title{font-size:1.2rem;font-weight:700;color:#333;margin-bottom:10px}.coupon-description{font-size:1rem;color:#666;flex-grow:1}.coupon-discount{font-size:.9rem;font-style:italic;color:#999;margin-bottom:15px}.coupon-buttons .btn{margin:0 5px;border-radius:10px;padding:10px 20px;transition:background-color .3s,color .3s}.get-deal-button,.visit-store-button:hover{background-color:#007bff;color:#fff}.get-deal-button:hover{background-color:#0056b3;color:#fff}.visit-store-button{background-color:#fff;color:#007bff;border:1px solid #007bff}
 
 </style>
 
@@ -75,33 +75,33 @@
 <br><br>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 shadow">
+        <div class="col-md-4 shadow d-none d-md-block">
             <div class="container bg-info rounded text-white">
-            <h4><em>Shopping Hacks & Savings Tips & Tricks</em></h4></div>
+                <h4><em>Shopping Hacks & Savings Tips & Tricks</em></h4>
+            </div>
 
             <div class="row">
                 @foreach ($blogs as $blog)
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12 mb-4 d-block d-md-block">
                     <div class="card blog-card">
                         <div class="card-body">
                             <div class="blog-image">
-
-                                <img class="img-fluid rounded shadow" src="{{ asset($blog->category_image) }}" alt="Blog Post Image "  style="max-width:700; height:auto; object-fit: cover;" >
+                                <img class="img-fluid rounded shadow" src="{{ asset($blog->category_image) }}" alt="Blog Post Image" style="max-width:700; height:auto; object-fit: cover;">
                             </div>
                             <h5 class="card-title">{{ $blog->title }}</h5>
-                            <p class="card-text">{{ $blog->excerpt }}</p>
+                            {{-- <p class="card-text">{{ $blog->excerpt }}</p> --}}
                             @if ($blog->slug)
                             <a href="{{ route('blog-details', ['slug' => Str::slug($blog->slug)]) }}" class="btn btn-dark stretched-link">Read More</a>
-                             @else
+                            @else
                             <a href="javascript:;" class="btn btn-dark stretched-link"> no slug/url</a>
-                                 @endif
+                            @endif
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
-
         </div>
+
         <div class="col-md-8">
             <div class="container">
                 <h3>Top Coupons</h3>
@@ -119,26 +119,28 @@
                                 @if ($store && $store->store_image)
                                 <img src="{{ asset('uploads/store/' . $store->store_image) }}" class="store-image" alt="{{ $store->name }} Logo">
                                 @else
-                                <span class="no-image-placeholder">Store  iS not Available </span>
+                                <span class="no-image-placeholder">{{ $coupon->store }} no slug</span>
                                 @endif
                             </div>
-                            <span>{{ $coupon->store }}</span>
+                            {{-- <span>{{ $coupon->store }}</span> --}}
                             <h5 class="card-title coupon-title text-left">{{ $coupon->name }}</h5>
-                            <p class="card-text coupon-description text-left">{{ $coupon->description }}</p>
-
+                            {{-- <p class="card-text coupon-description text-left">{{ $coupon->description }}</p> --}}
+                            <span class="d-block mb-2 {{ \Carbon\Carbon::parse($coupon->ending_date)->isPast() ? 'text-danger' : 'text-muted' }}">
+                                Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d M, Y') }}
+                            </span>
                             <div class="mt-auto">
-                                <p class="card-text coupon-discount text-left text-muted">Discount: {{ $coupon->discount }}</p>
+                                {{-- <p class="card-text coupon-discount text-left text-muted">Discount: {{ $coupon->discount }}</p> --}}
                                 <div class="coupon-buttons d-flex justify-content-start">
                                     @if ($coupon->code)
                                     <a href="#" class="btn btn-primary get-deal-button" onclick="openCouponInNewTab('{{ $coupon->destination_url }}', '{{ $coupon->id }}')">Code & Activate</a>
                                     @else
                                     <a href="{{ $coupon->destination_url }}" class="btn btn-primary get-deal-button" target="_blank">Get Deal</a>
                                     @endif
-                                    @if ($store)
+                                    {{-- @if ($store)
                                     <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="btn btn-outline-primary btn-sm visit-store-button ml-2">Visit Store</a>
                                     @else
                                     <a href="#" class="btn btn-sm btn-outline-primary visit-store-button ml-2">No Store found </a>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>

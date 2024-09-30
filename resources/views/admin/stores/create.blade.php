@@ -55,10 +55,10 @@
                                     <label for="description">Description</label>
                                     <textarea name="description" id="description" class="form-control" cols="30" rows="12" style="resize: none;" required></textarea>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="url">URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="url"  required>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="destination_url" id="destination_url">
