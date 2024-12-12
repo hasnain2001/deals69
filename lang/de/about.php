@@ -1,0 +1,36 @@
+<?php
+
+return [
+
+    'heading-1' => 'Welkom bij Couponsarena: waar sparen en winkelen samenkomen',
+    'heading-2' => 'Bei Couponsarena sind wir nicht nur eine Gutschein-Website, wir sind eine Gemeinschaft von engagierten Sparern und leidenschaftlichen Käufern. Unsere Reise begann mit einer einfachen, aber kraftvollen Idee: das Geldsparen zu einem integralen Bestandteil des Einkaufserlebnisses zu machen. In einer Welt, in der die Kosten ständig zu steigen scheinen, haben wir eine Plattform ins Leben gerufen, die es den Nutzern ermöglicht, exklusive Rabatte freizuschalten, unschlagbare Angebote zu entdecken und jeden Einkauf in eine clevere Investition zu verwandeln.',
+    'heading-3' => 'Unsere Mission',
+    'heading-4' => 'Unsere Mission ist klar: Wir möchten ein One-Stop-Ziel bieten, wo Käufer eine vielfältige Auswahl an Gutscheinen finden können, die ihren individuellen Bedürfnissen und Vorlieben entsprechen. Wir glauben, dass Geldsparen mühelos, aufregend und lohnend sein sollte. Indem wir Verbraucher mit exklusiven Angeboten verbinden und Partnerschaften mit führenden Einzelhändlern eingehen, wollen wir die Art und Weise, wie Menschen online einkaufen, neu definieren.',
+    'heading-5' => 'Was uns auszeichnet',
+    'heading-6' => 'Couponsarena hebt sich aus dem überfüllten Online-Markt aus mehreren Gründen hervor:',
+    'heading-7' => '1. Unübertroffene Vielfalt',
+    'heading-8' => 'Wir sind stolz darauf, eine unvergleichliche Vielfalt an Gutscheinen in einer breiten Palette von Kategorien anzubieten. Egal, ob Sie ein Modebegeisterter, technikaffin oder jemand sind, der einen Traumurlaub plant – unsere Plattform ist darauf ausgelegt, all Ihre Bedürfnisse zu erfüllen. Unsere Partnerschaften mit führenden Einzelhändlern gewährleisten einen vielfältigen und ständig wachsenden Pool an Rabatten.',
+    'heading-9' => '2. Echtzeit-Einsparungen',
+    'heading-10' => 'Unser Engagement für Echtzeit-Einsparungen unterscheidet uns von anderen. Unser engagiertes Team arbeitet unermüdlich daran, die Website mit den neuesten und aktuellsten Gutscheinen zu aktualisieren. Verabschieden Sie sich von der Frustration abgelaufener Codes – Couponsarena ist Ihre zuverlässige Quelle für sofortige Einsparungen.',
+    'heading-11' => '3. Benutzerfreundliche Erfahrung',
+    'heading-12' => 'Wir verstehen, dass die Navigation auf einer Gutschein-Website ein nahtloses Erlebnis sein sollte. Unsere benutzerfreundliche Oberfläche sorgt dafür, dass das Finden und Anwenden von Gutscheinen einfach und angenehm ist. Von einfacher Navigation bis hin zu personalisierten Empfehlungen haben wir unsere Plattform mit Ihrem Komfort im Hinterkopf gestaltet.',
+    'heading-13' => 'Wie alles begann',
+    'heading-14' => 'Die Idee für Couponsarena entstand aus persönlichen Erfahrungen und dem echten Wunsch, einen positiven Einfluss auf die Art und Weise zu nehmen, wie Menschen einkaufen. Unsere Gründer, selbst leidenschaftliche Käufer, fanden es oft schwierig, zuverlässige und vielfältige Gutscheinoptionen an einem Ort zu entdecken. Diese Frustration nährte die Vision einer Plattform, die den Sparprozess vereinfacht und für alle zugänglich macht.',
+    'heading-15' => 'Von der Entstehung dieser Idee haben wir einen langen Weg zurückgelegt. Was als Vision begann, hat sich zu einer dynamischen Online-Gemeinschaft entwickelt, in der Millionen von Nutzern zusammenkommen, um Geld zu sparen und ihre Erfolgsgeschichten zu teilen. Wir sind stolz darauf, eine Plattform geschaffen zu haben, die bei Menschen Anklang findet, die nicht nur Produkte suchen, sondern einen Lebensstil des klugen Ausgebens.',
+    'heading-16' => 'Treten Sie unserer Gemeinschaft bei',
+    'heading-17' => 'Couponsarena ist mehr als nur eine Website; es ist eine Gemeinschaft von cleveren Käufern, die an die Kraft des klugen Ausgebens glauben. Begleiten Sie uns auf dieser aufregenden Reise und genießen Sie die Vorteile von:',
+    'Exclusive Offers:' => 'Exklusive Angebote:',
+    'Access promotions you wont find anywhere else' => 'Zugang zu Aktionen, die Sie nirgendwo anders finden.',
+    'Personalized Recommendations:' => 'Personalisierte Empfehlungen:',
+    'Tailored deals based on your preferences.' => 'Maßgeschneiderte Angebote basierend auf Ihren Vorlieben.',
+    'Real-Time Savings:' => 'Echtzeit-Einsparungen:',
+    'Stay ahead with the latest and most up-to-date coupons.' => 'Seien Sie immer auf dem neuesten Stand mit den aktuellsten Gutscheinen.',
+    'Community Engagement:' => 'Gemeinschaftliches Engagement:',
+    'Connect with fellow savers, share tips, and celebrate your successes.' => 'Verbinden Sie sich mit anderen Sparern, teilen Sie Tipps und feiern Sie Ihre Erfolge.',
+    'heading-18' => 'Unser Engagement für Sie',
+    'heading-19' => 'Während wir weiter wachsen, bleibt unser Engagement unerschütterlich. Couponsarena ist bestrebt, eine erstklassige Plattform bereitzustellen, die es den Nutzern ermöglicht, mehr zu sparen, smarter einzukaufen und das Vergnügen beim Entdecken erstaunlicher Angebote zu genießen. Wir schätzen Transparenz, Integrität und das Vertrauen unserer Gemeinschaft in uns.',
+    'heading-20' => 'Bereit für große Einsparungen?',
+    'heading-21'  => 'Egal ob Sie ein erfahrener Gutscheinprofi oder gerade erst am Anfang Ihrer Sparreise stehen – Couponsarena heißt Sie herzlich willkommen. Entdecken Sie unser umfangreiches Angebot an Gutscheinen, engagieren Sie sich in unserer Community und erleben Sie eine neue Ära des kosteneffizienten Einkaufens. Wir freuen uns darauf, Sie an Bord zu haben!',
+    'heading-22' => 'Vielen Dank für Ihre Wahl von Couponsarena – wo jeder Klick zu smarten Einsparungen führt!',
+
+];

@@ -5,7 +5,7 @@ use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NetworksController;
 use App\Http\Controllers\StoresController;
-use App\Http\Controllers\DemoController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ErrorController;
@@ -41,7 +41,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // Route for search
-Route::get('/search', [SearchController::class, 'search'])->name('searchResults');
+Route::get('/search', [SearchController::class, 'searchResults'])->name('searchResults');
 
 
 
@@ -62,7 +62,8 @@ Route::fallback('notfound')->name('notfound');
 
 Route::get('/notfound', [ErrorController::class, 'showNotFound'])->name('not-found');
 
-Route::get('/coupons',  'coupons')->name('coupons.index');
+Route::get('/coupons',  'coupons')->name('home.coupons');
+ Route::get('/coupons', 'coupons' )->name('couponss');
 Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
 
 });
@@ -83,7 +84,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-    Route::controller(DemoController::class)->prefix('admin')->group(function () {
+    Route::controller(BlogController::class)->prefix('admin')->group(function () {
     Route::get('/Blog',  'blog')->name('admin.blog');
     Route::get('/Blog/create',  'create')->name('admin.blog.create');
     Route::post('/Blog/store', 'store')->name('admin.blog.store');

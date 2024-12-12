@@ -1,0 +1,36 @@
+<?php
+
+return [
+
+'heading-1' => 'Bienvenido a Couponsarena: Donde los ahorros y las compras se unen',
+'heading-2' => 'En Couponsarena no somos solo un sitio de cupones, somos una comunidad de consumidores dedicados y apasionados por las compras. Nuestra aventura comenzó con una idea simple pero poderosa: hacer que ahorrar dinero sea una parte integral de la experiencia de compra. En un mundo donde los costos parecen aumentar constantemente, imaginamos una plataforma que permite a los usuarios desbloquear descuentos exclusivos, descubrir ofertas inigualables y transformar cada compra en una inversión inteligente.',
+'heading-3' => 'Nuestra Misión',
+'heading-4' => 'Nuestra misión es clara: proporcionar un destino único donde los compradores puedan encontrar una amplia variedad de cupones que satisfagan sus necesidades y preferencias únicas. Creemos que ahorrar dinero debería ser sin esfuerzo, emocionante y gratificante. Al conectar a los consumidores con ofertas exclusivas y asociarnos con minoristas de primer nivel, buscamos redefinir la forma en que las personas abordan las compras en línea.',
+'heading-5' => 'Lo Que Nos Destaca',
+'heading-6' => 'Couponsarena se destaca en el saturado mercado en línea por varias razones:',
+'heading-7' => '1. Variedad Inigualable',
+'heading-8' => 'Estamos orgullosos de ofrecer una variedad de cupones sin igual en una amplia gama de categorías. Ya sea que seas un amante de la moda, un entusiasta de la tecnología o alguien que planea unas vacaciones de ensueño, nuestra plataforma está diseñada para satisfacer todas tus necesidades. Nuestras asociaciones con minoristas de primer nivel garantizan un pozo diverso y en constante expansión de descuentos.',
+'heading-9' => '2. Ahorros en Tiempo Real',
+'heading-10' => 'Nuestro compromiso de proporcionar ahorros en tiempo real nos diferencia de los demás. Nuestro equipo dedicado trabaja incansablemente para mantener el sitio actualizado con los cupones más recientes. Dile adiós a la frustración de encontrar códigos caducados: Couponsarena es tu fuente confiable para ahorros instantáneos.',
+'heading-11' => '3. Experiencia Amigable',
+'heading-12' => 'Entendemos que navegar por un sitio de cupones debería ser una experiencia fluida. Nuestra interfaz amigable garantiza que encontrar y aplicar cupones sea simple y agradable. Desde una navegación fácil hasta recomendaciones personalizadas, hemos diseñado nuestra plataforma con tu comodidad en mente.',
+'heading-13' => 'Cómo Comenzó Todo',
+'heading-14' => 'La idea de Couponsarena nació de experiencias personales y un verdadero deseo de tener un impacto positivo en la forma en que las personas hacen sus compras. Nuestros fundadores, ellos mismos compradores apasionados, a menudo encontraron difícil descubrir opciones de cupones confiables y diversas en un solo lugar. Esta frustración alimentó la visión de crear una plataforma que simplificara el proceso de ahorro, haciéndolo accesible para todos.',
+'heading-15' => 'Desde la concepción de esta idea, hemos recorrido un largo camino. Lo que comenzó como una visión se ha transformado en una dinámica comunidad en línea donde millones de usuarios se reúnen para ahorrar dinero y compartir sus éxitos. Estamos orgullosos de haber construido una plataforma que resuena con las personas que buscan no solo productos, sino un estilo de vida de gastos inteligentes.',
+'heading-16' => 'Únete a Nuestra Comunidad',
+'heading-17' => 'Couponsarena es más que un sitio web; es una comunidad de compradores inteligentes que creen en el poder de gastar inteligentemente. Únete a nosotros en esta emocionante aventura y disfruta de los beneficios de:',
+'Exclusive Offers:' => 'Ofertas Exclusivas:',
+'Access promotions you wont find anywhere else' => 'Accede a promociones que no encontrarás en ningún otro lugar.',
+'Personalized Recommendations:' => 'Recomendaciones Personalizadas:',
+'Tailored deals based on your preferences.' => 'Ofertas adaptadas a tus preferencias.',
+'Real-Time Savings:' => 'Ahorros en Tiempo Real:',
+'Stay ahead with the latest and most up-to-date coupons.' => 'Mantente al día con los cupones más recientes y actualizados.',
+'Community Engagement:' => 'Compromiso Comunitario:',
+'Connect with fellow savers, share tips, and celebrate your successes.' => 'Conéctate con otros ahorradores, comparte consejos y celebra tus éxitos.',
+'heading-18' => 'Nuestro Compromiso Contigo',
+'heading-19' => 'A medida que seguimos creciendo, nuestro compromiso sigue siendo inquebrantable. Couponsarena se dedica a proporcionar una plataforma de primer nivel que permite a los usuarios ahorrar más, comprar de manera más inteligente y disfrutar del descubrimiento de ofertas increíbles. Valoramos la transparencia, la integridad y la confianza que nuestra comunidad deposita en nosotros.',
+'heading-20' => '¿Listo para Ahorrar a lo Grande?',
+'heading-21' => 'Ya seas un profesional de cupones experimentado o estés comenzando tu viaje de ahorro, Couponsarena te da la bienvenida con los brazos abiertos. Explora nuestra amplia gama de cupones, comprométete con nuestra comunidad y vive una nueva era de compras económicas. ¡Estamos emocionados de tenerte a bordo!',
+'heading-22' => 'Gracias por elegir Couponsarena, donde cada clic conduce a ahorros inteligentes!',
+
+];

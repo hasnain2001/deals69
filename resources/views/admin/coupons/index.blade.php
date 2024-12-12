@@ -55,7 +55,7 @@
             <th width="30px">#</th>
             <th>Coupon Name</th>
             <th>Store</th>
-            <th>Never Expire</th>
+            <th>Code/Deal</th>
             <th>Status</th>
             <th>create at</th>
             <th>Last Updated</th> <!-- Add this column header -->
@@ -71,11 +71,13 @@
                 <td>{{ $coupon->name }}</td>
                 <td>{{ $coupon->store }}</td>
                 <td>
-                    @if ($coupon->authentication == "never_expire")
-                        <i class="fa fa-fw fa-check-circle" style="color: blue;"></i>
-                    @else
-                        <i class="fa fa-fw fa-times-circle"style="color:red;"></i>
-                    @endif
+           
+                        @if ($coupon->code)
+         <span>Code</span>
+                        @else
+         <span>Deal</span>
+                        @endif
+                 
                 </td>
                 <td>
                    @if ($coupon->status == "disable")

@@ -29,25 +29,41 @@
                         <a class="nav-link active d-flex align-items-center text-dark" aria-current="page" href="/"><i class="fas fa-home me-2"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center text-dark" href="{{ URL('/coupons') }}"><i class="fas fa-tags me-2"></i>Coupons</a>
+                        <a class="nav-link d-flex align-items-center text-dark" href="{{ route('couponss') }}"><i class="fas fa-tags me-2"></i>Coupons</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link d-flex align-items-center text-dark" href="{{ route('stores') }}"><i class="fas fa-store me-2"></i>Stores</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center text-dark" href="{{ route('categories') }}"><i class="fas fa-th-list me-2"></i>Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center text-dark" href="{{ route('blog') }}"><i class="fas fa-blog me-2"></i>Blogs</a>
+                        <a class="nav-link d-flex align-items-center text-dark" href="{{ route('blog')}}"><i class="fas fa-blog me-2"></i>Blogs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center text-dark" href="{{ route('contact') }}"><i class="fas fa-envelope me-2"></i>Contact</a>
+ <a class="nav-link d-flex align-items-center text-dark" href="{{route('contact') }}"><i class="fas fa-envelope me-2"></i>Contact</a>
                     </li>
                 </ul>
+               
                 <form action="{{ route('searchResults') }}" method="GET" class="d-flex ms-auto" role="search" style="height:40px">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="query" style="max-width: 250px;">
                     <button class="btn btn-primary text-dark" type="submit"><i class="fas fa-search me-1"></i></button>
                 </form>
+                  <!-- Language Dropdown -->
+                  <li class="nav-item dropdown list-unstyled ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ strtoupper($currentLang) }}
+                    </a>
+                    <ul class="dropdown-menu text-center shadow" aria-labelledby="navbarDropdown" style="min-width: auto;">
+                        @foreach ($langs as $lang)
+                            <li>
+                                <a href="{{ url('/' . $lang->code) }}" class="dropdown-item text-dark">
+                                    {{ strtoupper($lang->code) }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
             </div>
         </div>
     </nav>

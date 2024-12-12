@@ -6,6 +6,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Validation\Rule;
 use App\Models\Categories;
+use App\Models\Language;
 use App\Models\Networks;
 use Illuminate\Http\Request;
 use App\Models\Stores;
@@ -23,15 +24,21 @@ class StoresController extends Controller
 
         return view('blog', compact('storesByCategory'));
         }
-        public function store() {
-        $stores = Stores::get();
-        return view('admin.stores.index', compact('stores'));
-        }
+
+      public function store() {
+    $stores = Stores::select('id', 'name', 'created_at','updated_at','store_image','network','category',) // Select only necessary columns
+        ->orderByDesc('created_at')
+        ->get(); // Use pagination to load data in chunks
+
+    return view('admin.stores.index', compact('stores'));
+}
+
 
         public function create_store() {
         $categories = Categories::all();
         $networks = Networks::all();
-        return view('admin.stores.create', compact('categories', 'networks'));
+        $langs = Language::get();
+        return view('admin.stores.create', compact('categories', 'networks','langs'));
         }
 
 
@@ -39,6 +46,7 @@ class StoresController extends Controller
         public function store_store(Request $request) {
         $request->validate([
         'name' => 'required|string|max:255',
+        'language_id' =>'required|integer',
         'slug' => 'required|string|max:255|unique:stores,slug',
         'description' => 'nullable|string',
         'url' => 'nullable|url',
@@ -92,6 +100,7 @@ class StoresController extends Controller
         Stores::create([
         'name' => $request->input('name'),
         'slug' => $request->input('slug'),
+        'language_id' => $request->input('language_id'),
         'description' => $request->input('description'),
         'url' => $request->input('url'),
         'destination_url' => $request->input('destination_url'),
@@ -131,6 +140,7 @@ class StoresController extends Controller
             'max:255',
             Rule::unique('stores')->ignore($store->id),
         ],
+        'language_id' =>'required|integer',
         'description' => 'nullable|string',
         'url' => 'nullable|url',
         'destination_url' => 'nullable|url',
@@ -180,6 +190,7 @@ class StoresController extends Controller
         $store->update([
         'name' => $request->input('name'),
         'slug' => $request->input('slug'),
+        'language_id' => $request->input('language_id'),
         'description' => $request->input('description'),
         'url' => $request->input('url'),
         'destination_url' => $request->input('destination_url'),

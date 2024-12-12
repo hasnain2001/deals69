@@ -24,6 +24,7 @@ class Stores extends Model
         'authentication',
         'network',
         'store_image',
+        'language_id',
     ];
 
     public function category()
@@ -35,6 +36,9 @@ class Stores extends Model
         {
             return $this->hasMany(Coupons::class);
         }
-
+        public function language():BelongsTo
+        {
+            return $this->belongsTo(Language::class, 'language_id');
+        }
 
 }

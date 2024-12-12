@@ -18,47 +18,10 @@ body{font-family:Roboto,sans-serif;background-color:#f2f2f2;color:#333;text-alig
         <h1>404</h1>
         <h2>Oops! Page Not Found</h2>
         <p>It looks like the page you were trying to reach does not exist.</p>
-        <a href="{{ url('/') }}" class="button ">Go Back to Home</a>
-
-    <div class="row">
-        @foreach ($Coupons as $coupon)
-        <div class="col-md-4 mb-3">
-            <div class="card coupon-card h-100">
-                <div class="card-body d-flex flex-column">
-                    <div class="store-logo text-center mb-3">
-                        @php
-                        $store = App\Models\Stores::where('slug', $coupon->store)->first();
-                        @endphp
-                        @if ($store && $store->store_image)
-                        <img src="{{ asset('uploads/store/' . $store->store_image) }}" class="store-image" alt="{{ $store->name }} Logo">
-                        @else
-                        <span class="no-image-placeholder">Store  iS not Available </span>
-                        @endif
-                    </div>
-                    <span>{{ $coupon->store }}</span>
-                    <h5 class="card-title coupon-title text-left">{{ $coupon->name }}</h5>
-                    <p class="card-text coupon-description text-left">{{ $coupon->description }}</p>
-
-                    <div class="mt-auto">
-                        <p class="card-text coupon-discount text-left text-muted">Discount: {{ $coupon->discount }}</p>
-                        <div class="coupon-buttons d-flex justify-content-start">
-                            @if ($coupon->code)
-                            <a href="#" class="btn btn-primary get-deal-button" onclick="openCouponInNewTab('{{ $coupon->destination_url }}', '{{ $coupon->id }}')">Code & Activate</a>
-                            @else
-                            <a href="{{ $coupon->destination_url }}" class="btn btn-primary get-deal-button" target="_blank">Get Deal</a>
-                            @endif
-                            @if ($store)
-                            <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="btn btn-outline-primary btn-sm visit-store-button ml-2">Visit Store</a>
-                            @else
-                            <a href="#" class="btn btn-sm btn-outline-primary visit-store-button ml-2">No Store found </a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>  </div>
+        <a href="{{ url()->previous() }}
+" class="button ">Go Back to Home</a>
+    </div>
+    
     <br><br>
     <footer>
         @include('components.footer')

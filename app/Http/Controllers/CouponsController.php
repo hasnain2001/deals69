@@ -118,8 +118,24 @@ class CouponsController extends Controller
     }
 
     public function store_coupon(Request $request) {
+            $request->validate([
+            'name' => 'required|string|max:255',
+            'language_id' =>'nullable|integer',
+            'description' => 'nullable|string|max:1000',
+            'code' => 'nullable|string|max:100',
+            'destination_url' => 'nullable|url',
+            'ending_date' => 'nullable|date|after_or_equal:today',
+            // 'status' => 'required|in:active,inactive',
+            'authentication' => 'nullable|array',
+            'authentication.*' => 'string',
+            'store' => 'nullable|string|max:255',
+      
+
+
+        ]);
     Coupons::create([
     'name' => $request->name,
+    'language_id' => $request->language_id,
     'description' => $request->description,
     'code' => $request->code,
     'destination_url' => $request->destination_url,
@@ -140,9 +156,22 @@ class CouponsController extends Controller
 
     public function update_coupon(Request $request, $id) {
     $coupons = Coupons::find($id);
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'language_id' => 'nullable|integer', // Allow null, so it doesn't throw an error if not provided
+        'description' => 'nullable|string|max:1000',
+        'code' => 'nullable|string|max:100',
+        'destination_url' => 'nullable',
+        'ending_date' => 'nullable|date|after_or_equal:today',
+        'authentication' => 'nullable|array',
+        'authentication.*' => 'string',
+        'store' => 'nullable|string|max:255', // Allow null, so it doesn't throw an error if not provided
+
+    ]);
 
     $coupons->update([
     'name' => $request->name,
+    'language_id' => $request->input('language_id', $coupons->language_id), 
     'description' => $request->description,
     'code' => $request->code,
     'destination_url' => $request->destination_url,

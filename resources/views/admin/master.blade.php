@@ -150,6 +150,12 @@
                                         <p>Blog</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.lang.lang') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>lang</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -216,7 +222,7 @@
 
     <script src="{{ asset('admin/dist/js/adminlte2167.js?v=3.2.0') }}"></script>
 
-    <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
+
 
     <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
 </body>

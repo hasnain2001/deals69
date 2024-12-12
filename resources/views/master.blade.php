@@ -16,7 +16,7 @@ header("X-Robots-Tag:index, follow");
      <meta name="description" content="Find the best deals, discounts, and coupons on  Deals69. Save money on your favorite products from top brands.">
 
  <meta name="keywords" content="deals, discounts, coupons, savings, affiliate marketing">
- <link rel="shortcut icon" href="{{asset('images/icon.png')}}" type="image/x-icon">
+ <link rel="icon" href="{{ asset('images/dlogo-removebg-preview.png') }}" type="image/x-icon">
   <meta name="author" content="John Doe">
  <meta name="robots" content="index, follow">
 

@@ -68,6 +68,20 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <select name="language_id" id="lang" class="form-control" required>
+                                        <option disabled selected>--Select Langs--</option>
+                                    
+                                        <!-- Check if $stores->language exists before displaying the language name -->
+                                        <option value="" disabled selected>
+                                        {{ $stores->language ? $stores->language->code : '--Select Langs--' }}
+                                        </option>
+                                    
+                                        @foreach ($langs as $lang)
+                                        <option value="{{ $lang->id }}">{{ $lang->code }}</option>
+                                        @endforeach
+                                        </select>
+                                </div>
                              <div class="form-group">
     <label for="name">Meta Title<span class="text-danger">*</span></label>
        @error('title')
@@ -131,6 +145,22 @@
 
 <div id="imagePreview"></div>
 
+
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a href="{{ route('admin.store') }}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </div>
+                   
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
 <script>
     // JavaScript to preview the selected image
     document.getElementById('store_image').addEventListener('change', function() {
@@ -151,17 +181,4 @@
         }
     });
 </script>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <a href="{{ route('admin.store') }}" class="btn btn-secondary">Cancel</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-</div>
 @endsection

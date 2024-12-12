@@ -24,10 +24,10 @@
             <h4>Info</h4>
             <ul class="list-unstyled">
               <li><a class=" " href="/"><i class="fas fa-home me-2"></i>Home</a></li>
-              <li><a class=" " href="{{ route('contact') }}"><i class="fas fa-envelope me-2"></i>Contact us</a></li>
-              <li><a class=" " href="{{ route('about') }}"><i class="fas fa-info-circle me-2"></i>About us</a></li>
-              <li><a class="" href="{{ route('term_and_condition') }}"><i class="fas fa-file-alt me-2"></i>Terms and Condition</a></li>
-              <li><a class=" " href="{{ route('privacy') }}"><i class="fas fa-lock me-2"></i>Privacy Policy</a></li>
+              <li><a class=" " href="{{url(app()->getLocale() . '/contact') }}"><i class="fas fa-envelope me-2"></i>Contact us</a></li>
+              <li><a class=" " href="{{url(app()->getLocale() . '/about') }}"><i class="fas fa-info-circle me-2"></i>About us</a></li>
+              <li><a class="" href="{{url(app()->getLocale() . '/term_and_condition') }}"><i class="fas fa-file-alt me-2"></i>Terms and Condition</a></li>
+              <li><a class=" " href="{{ url(app()->getLocale() . '/privacy') }}"><i class="fas fa-lock me-2"></i>Privacy Policy</a></li>
             </ul>
           </div>
           <!-- Follow Us and Contact Us Section -->

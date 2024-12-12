@@ -30,35 +30,38 @@ class HomeController extends Controller
         return view('blog', compact('blogs', 'chunks')); // Pass both data to the view
         }
 
-        public function blog_deatil($title) {
-        // Decode the URL-encoded title
-        $decodedTitle = str_replace('-', ' ', $title);
-        $chunks = Stores::latest()->paginate(20);
-        // Retrieve the blog post from the database based on the decoded title
-        $blog = Blog::where('title', $decodedTitle)->firstOrFail();
+public function blog_deatil($title) {
+    // Decode the URL-encoded title
+    $decodedTitle = str_replace('-', ' ', $title);
+    $chunks = Stores::latest()->paginate(20);
+    
+    // Retrieve the blog post from the database based on the decoded title
+    $blog = Blog::where('slug', $decodedTitle)->first();
 
+    if (!$blog) {
+    return redirect('404');
+    }
 
-        if (!$blog) {
-            return redirect('404');
-            }
+    return view('blog-details', compact('blog', 'chunks'));
+}
 
-
-        return view('blog-details', compact('blog','chunks'));
-        }
 
         public function index() {
         $stores = Stores::latest()->paginate(15);
 
-        $blogs = Blog::latest()->paginate(9);
+        $blogs = Blog::latest()->paginate(6);
         $home = Blog::paginate(9);
 
-        $Coupons = Coupons::whereIn('id', function($query) {
-        $query->select(DB::raw('MAX(id)'))
+   $Coupons = Coupons::whereIn('id', function($query) {
+    $query->select(DB::raw('MAX(id)'))
         ->from('coupons')
+        ->whereNotNull('code')         
+        ->where('code', '!=', '')     
         ->groupBy('store');
-        })
-        ->orderBy('created_at', 'desc')
-        ->paginate(21);
+    })
+    ->orderBy('created_at', 'desc')
+    ->paginate(21);
+
         return view('home', compact('stores',  'blogs','Coupons','home'));
         }
 

@@ -45,7 +45,7 @@ header("X-Robots-Tag:index, follow");
             @if(session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            <form method="post" action="{{ route('contact') }}">
+            <form method="post" action="{{url(app()->getLocale() . '/contact') }}">
                 @csrf
                 <div class="form-group">
                     <input type="text" class="form-control" name="name" placeholder="Enter your name">
